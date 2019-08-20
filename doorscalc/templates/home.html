@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="d-flex justify-content-center mt-3">
+<div class="alert alert-success" role="alert">
+  Hi {{ user.get_short_name }}! You'are logged in. Please proceed to the app:
+</div>
+</div>
+<div class="d-flex justify-content-center mt-3">
+
+  <p><a href="/dcalc">Dcalc</a></p>
+  
+</div>
+</div>
+  <div class="d-flex justify-content-center mt-3">
+  <a href="{% url 'logout' %}"><button type="submit" class="btn btn-primary">Logout</button></a>
+  </div>
+{% else %}
+
+<div class="d-flex justify-content-center m-3"><div class="alert alert-danger" role="alert">
+  Sorry, You are not logged into the platform. Please procceed to login form.
+</div></div>
+{% comment %} <div class="d-flex justify-content-center"><a href="{% url 'login' %}"><button type="submit" class="btn btn-primary">Proceed to login</button></a></div> {% endcomment %}
+
+<div class="d-flex justify-content-center">    
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+        <label>Username: </label><br>
+        <input type="text" name="username" class="form-control" required>
+        <label>Password :</label><br>
+        <input type="password" name="password" class="form-control" required>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form></div>
+
+      
+  </div>
+  
+  
+
+
+
+
+{% endif %}
+{% endblock %}
+
+
+

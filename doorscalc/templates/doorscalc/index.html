@@ -1,0 +1,61 @@
+{% extends 'doorscalc/base.html' %}
+
+{% block doorscalc_form %}
+<div class="row initiallyHidden">
+<div class="col m-3">
+{% if user.is_authenticated %}
+<nav class="navbar fixed-top navbar-light bg-dark">
+<a class="navbar-brand text-light" href="#"><i class="fa fa-file" aria-hidden="true"></i>
+Dcalc</a>
+
+  <a href="{% url 'logout' %}"><button type="submit" class="shadow btn btn-danger btn-md "><i class="fa fa-sign-out" aria-hidden="true"></i>
+Logout</button></a>
+</nav>
+<div class="border border-success shadow-sm alert alert-success" role="alert">
+<div class="d-flex bd-highlight">
+    
+  <div class="p-2 w-100 bd-highlight">Hi {{ user.get_short_name }}! Your session started at {{ user.last_login }}.</div>
+  <div class="p-2 flex-shrink-1 bd-highlight"><a href="{% url 'logout' %}"><button type="submit" class="shadow btn btn-secondary btn-md ">Logout</button></a></div>
+
+</div>
+</div>
+
+
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
+</div>
+  
+</div>
+
+<div id='formularz' class='initiallyHidden'>
+<h1>Doorscalc</h1>
+<p>Pick appriopriate door type:</p>
+<div class="row">
+  <div class="col-sm-8 col-lg-5"><form method="POST" id="doors_form">
+    {% csrf_token %}
+    {% comment %} {{ calc_form.as_p }} {% endcomment %}
+    {% for door in doors_objects %}
+        
+        {% comment %} <label><input type="radio" name="code" value={{ door.id }} code={{ door.code }} required><b> {{ door.code }}</b> - {{ door.title }}</input></label><br> {% endcomment %}
+        <label data-tippy-content="{{ door.tooltip }}" ><img src="{{ door.cover.url}}" alt="{{ door.title }}"><input type="radio" name="code" value={{ door.id }} code={{ door.code }} excluded={{ door.excluded }} required><b> {{ door.code }}</b> - {{ door.title }}</input></label><br>
+    {% endfor %}
+        <p>Width: <input type="number" class="shadow-sm form-control" name="width" value="" min="300" max="900" required></p>
+        <p>Height: <input type="number" class="shadow-sm form-control" name="height" value="" min="300" max="900" required></p>
+        <p>Depth: <input type="number" class="shadow-sm form-control" name="depth" value="" min="300" max="900"></p>
+    <button type="submit" id="sub" class="shadow btn btn-success"><i class="fa fa-calculator" aria-hidden="true"></i>
+Calculate</button><i class="fas fa-euro-sign"></i> 
+    <button name='clear' class="shadow btn btn-secondary"><i class="fa fa-times" aria-hidden="true"></i>
+Clear</button>
+    <button name='begin' class="shadow btn btn-secondary"><i class="fa fa-file" aria-hidden="true"></i>
+New</button>
+    <div class='shadow rounded' id=result></div>
+</form>
+</div></div>
+  <div class="col-sm-4 col-lg-7"></div>
+</div>
+
+{% endblock doorscalc_form %}
+
+    

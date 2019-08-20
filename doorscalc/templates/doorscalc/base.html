@@ -1,0 +1,186 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/doorscalc.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Doorscalc</title>
+  </head>
+  <body class="bg-light">
+  
+    {% block doorscalc_form %}
+    {% endblock %}
+    <!-- Optional JavaScript -->
+   
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/tippy.js@4"></script>
+    
+    <script>
+// START: smooth fade in 
+$("body").hide();
+$('div').removeClass('initiallyHidden');
+$('.navbar').hide();
+
+$(document).ready(function(){
+    setTimeout(() => {
+        $("body").hide().fadeIn(1000);
+    }, 100);
+    });
+// END: smooth fade in
+
+// START: scroll fixed bar
+$(window).bind('scroll', function () {
+    if ($(window).scrollTop() > 50) {
+        $('.navbar').slideDown( "fast" );
+    } else {
+        $('.navbar').slideUp('fast');
+    }
+});
+// END: scroll fixed bar
+
+  tippy('label', {
+  followCursor: "horizontal",
+  animateFill: false,
+  animation: 'shift-away', // or 'shift-toward', 'fade', ...
+  duration: 200,
+  arrow: true,
+})  
+
+
+function reveal_board() {
+$('h1,img,input,button').each(function (index) {
+    $(this).hide();
+});
+
+ $("h1,img,input,button").each(function(index) {  
+       var that = this;
+        var t = setTimeout(function() { 
+            $(that).hide().show(500); 
+        }, 20 * index);        
+    });
+
+}
+reveal_board()
+{/* $('img').each(function (index, value) {
+    $(this).hide().show(2000);
+    
+
+}); */}
+
+function clearme() {  
+    console.log('cleared')
+    $('input[type="number"]').val('')
+    $( "#result" ).empty();
+}
+    
+
+
+    $( "button[name='clear']" ).click(function() {
+        clearme();
+    });
+$( "button[name='begin']" ).click(function() {
+        clearme();
+        $('html, body').animate({
+            scrollTop: $("#formularz").offset().top
+        }, 500);
+    });
+$('input:radio[name="code"]').each( function(index) {
+    $(this).click(function (e) { 
+        $('html, body').animate({
+            scrollTop: $("#result").offset().top
+        }, 500);
+        var excluded = $(this).attr('excluded');
+        console.log(excluded);
+        $('input[type="number"').prop('disabled', false);
+        if (excluded != undefined || excluded != null ) {
+            $('input[name='+excluded+']').prop('disabled', true);
+            console.log('changed')     
+        } else {
+            $('input[type="number"').prop('disabled', false);
+            console.log('all unlocked')
+            console.log(excluded)
+        }
+        excluded = null;
+    });
+}); 
+
+
+
+{/* 
+   $('input:radio[name="code"][code^="S"][code^="S"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', true);
+        } 
+
+    });
+   $('input:radio[name="code"][code^="C"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', false);
+        } 
+
+    });
+   $('input:radio[name="code"][code^="T"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', false);
+        } 
+
+    });
+ */}
+
+
+    $('#doors_form').on('submit', function(event){
+    event.preventDefault();
+    $("#result").empty();
+    console.log("calculator works!")  // sanity check
+    
+    
+    $('html, body').animate({
+        scrollTop: $("#result").offset().top
+    }, 500);
+    
+    $('#result').hide().fadeIn(800);
+    calculate_form();
+
+    });
+
+    function calculate_form() {
+    console.log("calculation begins...") // sanity check
+    $.ajax({
+        url : "{% url 'ajax' %}", // the endpoint
+        type : "POST", // http method
+        data : $('#doors_form').serialize(), // data sent with the post request
+        // handle a successful response
+        success : function(json) {
+            console.log(json.isvalid);
+            console.log(json.nosna);
+            console.log(json.maxm2);
+
+            if (json.isvalid) {
+                console.log(json); // log the returned json to the console
+                console.log("success Django>Ajax" + json.m2); // another sanity check
+                $('#result').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div>')
+            } else {
+                alert('Sorry. Doors dimensions exceeded. Unavailable to build. Consider Two-winged option insteed.')
+            }
+
+        },
+    });
+    };
+    </script>
+  </body>
+</html>

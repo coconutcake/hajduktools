@@ -1,0 +1,28 @@
+#formularz {
+    padding: 1rem;
+
+}
+#price {
+    background: #4fc296;
+    padding: 1rem;
+}
+.presult {
+    font-weight: bold; 
+    margin: 0;
+}
+.presult {
+    margin: 0;
+
+}
+
+#net_price {
+    color: #4fc296;
+}
+input[type="radio"]:checked {
+    box-shadow: 0 0 0 2px orange;
+  }
+#result {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.initiallyHidden { display: none; }
