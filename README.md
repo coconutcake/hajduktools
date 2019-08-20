@@ -19,4 +19,4 @@ Admin will have access to price modifications and additional calculation formula
 - Checking platform
 - Doors ordering platform
 - Statuses
-
+-
