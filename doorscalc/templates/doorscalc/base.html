@@ -184,7 +184,7 @@ $('input:radio[name="code"]').each( function(index) {
     function order() {
         console.log("ordering begins...")
         $.ajax({
-            url: "{% url 'ajax_ord %}",
+            url: "{% url 'ajax_ord' %}",
             type: "POST",
             data: {},
             success : function(payload) {
