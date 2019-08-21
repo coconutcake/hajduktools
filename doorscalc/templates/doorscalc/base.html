@@ -175,7 +175,7 @@ $('input:radio[name="code"]').each( function(index) {
                 console.log("success Django>Ajax" + json.m2); // another sanity check
                 $('#result').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div>')
             } else {
-                alert('Sorry. Doors dimensions exceeded. Unavailable to build. Consider Two-winged option insteed.')
+                alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
 
         },

@@ -11,9 +11,11 @@ class Discount(models.Model):
 class Door(models.Model):
     C = 'int(w)*int(h)+int(h)*int(d)'
     F = 'int(w)*int(h)'
+    S = 'int(w)*int(h)/2'
     szyby = [
-        (C, 'Tylko frontowa w narożnych i trójstronnych'),
-        (F, 'Cała'),
+        (C, 'Cała narożna'),
+        (F, 'Cała frontowa'),
+        (S, 'Połowa frontowej'),
     ]
     
     
