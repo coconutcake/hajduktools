@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Discount(models.Model):
@@ -18,8 +18,6 @@ class Door(models.Model):
         (S, 'Połowa frontowej'),
     ]
     
-    
-
     title = models.CharField(verbose_name=u"Nazwa", max_length=200, blank=False, null=False)
     code = models.CharField(verbose_name=u"Kod", max_length=3, blank=False, null=False)
     multiplier = models.DecimalField(verbose_name=u"Mnożnik", max_digits=3, decimal_places=0, blank=False, null=False)
@@ -37,9 +35,43 @@ class Door(models.Model):
     published_date = models.DateTimeField(
             blank=True, null=True)
 
+
     def publish(self):
         self.published_date = timezone.now()
         self.save()
 
     def __str__(self):
         return f'{self.code} | {self.title}'
+
+class Order(models.Model):
+    P = 'Pending'
+    A = 'Accepted'
+    O = 'Ordered'
+    stats = [
+        (P, 'Pending'),
+        (A, 'Accepted'),
+        (O, 'Ordred'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    door = models.ForeignKey('Door', verbose_name=u"Type", on_delete=models.CASCADE)
+
+    w = models.DecimalField(verbose_name=u"Width", max_digits=3, decimal_places=0, blank=False, null=False)
+    h = models.DecimalField(verbose_name=u"Height", max_digits=3, decimal_places=0, blank=False, null=False)
+    d = models.DecimalField(verbose_name=u"Depth", max_digits=3, decimal_places=0, blank=False, null=False)
+    status = models.CharField(verbose_name=u"Status", help_text="Status zamówienia", choices=stats, default=P, max_length=50, blank=False, null=True)
+    published_date = models.DateTimeField(blank=True, null=True)
+    
+
+    def publish(self):
+        self.user = request.user
+        self.published_date = timezone.now()
+        self.save()
+        
+    @classmethod
+    def save(self, *args, **kwargs):
+        self.user = request.user
+        super().save(*args, **kwargs) 
+
+    def __str__(self):
+        return f'{self.user} | {self.door.title} | {self.w}x{self.h}x{self.d}'
+

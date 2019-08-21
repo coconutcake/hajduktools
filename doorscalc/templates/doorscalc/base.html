@@ -181,6 +181,22 @@ $('input:radio[name="code"]').each( function(index) {
         },
     });
     };
+    function order() {
+        console.log("ordering begins...")
+        $.ajax({
+            url: "{% url 'ajax_ord %}",
+            type: "POST",
+            data: {},
+            success : function(payload) {
+                console.log('displaying payload')
+                if (payload.sent) {
+                    alert('Sent!')
+                } else {
+                    alert('Error')
+                }
+            }
+        });
+    };
     </script>
   </body>
 </html>
