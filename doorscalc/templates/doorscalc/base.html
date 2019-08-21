@@ -181,12 +181,24 @@ $('input:radio[name="code"]').each( function(index) {
         },
     });
     };
+const ob = {
+name : "Marcin",
+pet : {
+    name : "Szamson",
+    color : "brown",
+    speed : 1000000
+}
+};
     function order() {
         console.log("ordering begins...")
         $.ajax({
             url: "{% url 'ajax_ord' %}",
             type: "POST",
-            data: {},
+            contentType : "application/json",
+            data : JSON.stringify(ob),
+            dataType : "json"
+
+
             success : function(payload) {
                 console.log('displaying payload')
                 if (payload.sent) {
