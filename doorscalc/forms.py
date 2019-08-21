@@ -1,5 +1,10 @@
 from django import forms
-from .models import Door
+from .models import Discount, Door, Order
+
+class OrderForm(forms.ModelForm):
+    class Meta:
+        model = Order
+        fields = ['door', 'w', 'h', 'd']
 
 class DoorForm(forms.Form):
     doors_type = forms.ModelChoiceField(queryset=Door.objects.values_list('code', flat=True).order_by('id').distinct(), initial=0, widget=forms.RadioSelect)

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import Door, Discount
-from .forms import DoorForm
+from .forms import DoorForm, OrderForm
 from django.views import View
 from django.http import JsonResponse
 from django.core import serializers
@@ -103,3 +103,17 @@ def ajax(request):
 
         # data['formula1'] = formula1
         return JsonResponse(data)
+def ajax_ord(request):
+    if request.method == 'POST':
+        w = request.POST.get('w', 'None')
+        h = request.POST.get('h', 'None')
+        d = request.POST.get('d', 'None')
+        t = request.POST.get('t', 'None')
+        payload = {}
+        form = Order(doors=t, w=w, h=h, d=d, user=request.user)
+        if form.is_valid():
+            form.save()
+            payload['sent'] = True
+        else:
+            payload['sent'] = False
+        return JsonResponse(payload)
