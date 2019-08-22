@@ -114,7 +114,7 @@ $('input:radio[name="code"]').each( function(index) {
             $(arrayform).each(function(index, obj){
             formData[obj.name] = obj.value;
             });
-            console.log('to jest formdata');
+            console.log('SANITY CHECK: cash:');
             console.log(formData);
             order();
             clearme();
@@ -128,8 +128,8 @@ $('input:radio[name="code"]').each( function(index) {
 function clearobj(obj) {
     for (var key in obj) {
         delete obj[key];
-        console.log('this is formdata...................')
     }
+    console.log('SANITY CHECK: data cleaned?');
     console.log(obj);
 }
 // function: SHOWUP........................................
@@ -201,7 +201,7 @@ function clearobj(obj) {
                 console.log('displaying what is d.........')
                 console.log(payload.error);
                 if (payload.sent) {
-                    alert('Sent!')
+                    alert('Your order has been sent!')
                 } else {
                     alert('Error')
                 }
