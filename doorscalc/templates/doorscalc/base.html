@@ -36,7 +36,7 @@ $(document).ready(function(){
         $("body").hide().fadeIn(1000);
     }, 100);
 });
-
+clearme();
 // Scroll fixed bar...................................
 $(window).bind('scroll', function () {
     if ($(window).scrollTop() > 50) {
@@ -109,14 +109,29 @@ $('input:radio[name="code"]').each( function(index) {
     formData = {}
     $('#ord').on('click', function(event){
     event.preventDefault();
-    var arrayform = $("#doors_form").serializeArray();
-    $(arrayform).each(function(index, obj){
-        formData[obj.name] = obj.value;
+        if(confirm("Are you sure you want to order it?"))   {
+            var arrayform = $("#doors_form").serializeArray();
+            $(arrayform).each(function(index, obj){
+            formData[obj.name] = obj.value;
+            });
+            console.log('to jest formdata');
+            console.log(formData);
+            order();
+            clearme();
+            clearobj(formData);
+        } else {
+            return false;
+        }
     });
-    console.log('to jest formdata');
-    console.log(formData);
-    order();
-    });
+
+// function: clear object.................................
+function clearobj(obj) {
+    for (var key in obj) {
+        delete obj[key];
+        console.log('this is formdata...................')
+    }
+    console.log(obj);
+}
 // function: SHOWUP........................................
     function showup() {
         $("body").hide();
