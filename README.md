@@ -8,15 +8,15 @@ The main idea is to provide B2B customers an access to such application which wi
 Admin will have access to price modifications and additional calculation formulas  through CMS and be able to change them along with constantly changing product prices.
 
 ## Main project assumptions:
-- Responsive and minimal app for B2B sector
-- Access only for registered users
-- Easy changes to apply such: prices, multipliers
-- Additional formulas
-- No page refreshings
+- Responsive and minimal app for B2B sector [done]
+- Access only for registered users [done]
+- Easy changes to apply such: prices, multipliers [done]
+- Additional formulas [done]
+- No page refreshings thanks to AJAX/JSON [done]
 
 ## Future project extensions:
 - Mailing generator for company employers
 - Checking platform
 - Doors ordering platform
 - Statuses
--
+

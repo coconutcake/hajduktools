@@ -10,7 +10,7 @@ import datetime
 from django.contrib.auth.decorators import login_required
 from django.apps import apps
 from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth.models import User
 
 # def doors_list(request):
 #     doors_objects = Door.objects.all()
@@ -122,11 +122,14 @@ def ajax_ord(request):
         form = OrderForm(request.POST)
         
         if form.is_valid():
+
             obj = form.save(commit=False)
+            obj.user = request.user
             obj.w = int(w)
             obj.h = int(h)
+            obj.d = int(d)
+            
             obj.door = Door.objects.get(pk=t)
-
             obj.save()
 
         #     form.save()
