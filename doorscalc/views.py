@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.template import loader
-from .models import Door, Discount
+from .models import Door, Discount, Order
 from .forms import DoorForm, OrderForm
 from django.views import View
 from django.http import JsonResponse
@@ -9,7 +9,7 @@ import math
 import datetime
 from django.contrib.auth.decorators import login_required
 from django.apps import apps
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 # def doors_list(request):
@@ -103,17 +103,36 @@ def ajax(request):
 
         # data['formula1'] = formula1
         return JsonResponse(data)
+@csrf_exempt
 def ajax_ord(request):
     if request.method == 'POST':
-        w = request.POST.get('w', 'None')
-        h = request.POST.get('h', 'None')
-        d = request.POST.get('d', 'None')
-        t = request.POST.get('t', 'None')
+        w = request.POST.get('width', 'None')
+        h = request.POST.get('height', 'None')
+        d = request.POST.get('depth', 'None')
+        t = request.POST.get('code', 'None')
+
         payload = {}
-        form = Order(doors=t, w=w, h=h, d=d, user=request.user)
+
+        payload['w'] = w
+        payload['h'] = h
+        payload['d'] = d
+        payload['t'] = t
+        payload['sent'] = 'sent'
+
+        form = OrderForm(request.POST)
+        
         if form.is_valid():
-            form.save()
-            payload['sent'] = True
-        else:
-            payload['sent'] = False
+            obj = form.save(commit=False)
+            obj.w = int(w)
+            obj.h = int(h)
+            obj.door = Door.objects.get(pk=t)
+
+            obj.save()
+
+        #     form.save()
+        #     payload['sent'] = 'sent'
+        # else:
+        #     payload['sent'] = 'sentt'
+
         return JsonResponse(payload)
+        # return JsonResponse(payload)

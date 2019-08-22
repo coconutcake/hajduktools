@@ -53,12 +53,12 @@ class Order(models.Model):
         (O, 'Ordred'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    door = models.ForeignKey('Door', verbose_name=u"Type", on_delete=models.CASCADE)
+    door = models.ForeignKey('Door', verbose_name=u"Type", on_delete=models.CASCADE, blank=True, null=True)
 
-    w = models.DecimalField(verbose_name=u"Width", max_digits=3, decimal_places=0, blank=False, null=False)
-    h = models.DecimalField(verbose_name=u"Height", max_digits=3, decimal_places=0, blank=False, null=False)
-    d = models.DecimalField(verbose_name=u"Depth", max_digits=3, decimal_places=0, blank=False, null=False)
-    status = models.CharField(verbose_name=u"Status", help_text="Status zamówienia", choices=stats, default=P, max_length=50, blank=False, null=True)
+    w = models.DecimalField(verbose_name=u"Width", max_digits=3, decimal_places=0, blank=True, null=True)
+    h = models.DecimalField(verbose_name=u"Height", max_digits=3, decimal_places=0, blank=True, null=True)
+    d = models.DecimalField(verbose_name=u"Depth", max_digits=3, decimal_places=0, blank=True, null=True)
+    status = models.CharField(verbose_name=u"Status", help_text="Status zamówienia", choices=stats, default=P, max_length=50, blank=True, null=True)
     published_date = models.DateTimeField(blank=True, null=True)
     
 
@@ -67,11 +67,11 @@ class Order(models.Model):
         self.published_date = timezone.now()
         self.save()
         
-    @classmethod
-    def save(self, *args, **kwargs):
-        self.user = request.user
-        super().save(*args, **kwargs) 
+    # @classmethod
+    # def save(self, *args, **kwargs):
+
+    #     super().save(*args, **kwargs) 
 
     def __str__(self):
-        return f'{self.user} | {self.door.title} | {self.w}x{self.h}x{self.d}'
+        return f'{self.w}'
 

@@ -55,6 +55,9 @@ $(window).bind('scroll', function () {
   arrow: true,
 })  
 
+// VARS
+var ob = {}
+
 
 function reveal_board() {
 $('h1,img,input,button').each(function (index) {
@@ -114,40 +117,11 @@ $('input:radio[name="code"]').each( function(index) {
 }); 
 
 
-
-{/* 
-   $('input:radio[name="code"][code^="S"][code^="S"]').change(
-    function(){
-        if ($(this).is(':checked')) {
-            console.log('ok')// append goes here
-            $('input[name="depth"]').prop('disabled', true);
-        } 
-
-    });
-   $('input:radio[name="code"][code^="C"]').change(
-    function(){
-        if ($(this).is(':checked')) {
-            console.log('ok')// append goes here
-            $('input[name="depth"]').prop('disabled', false);
-        } 
-
-    });
-   $('input:radio[name="code"][code^="T"]').change(
-    function(){
-        if ($(this).is(':checked')) {
-            console.log('ok')// append goes here
-            $('input[name="depth"]').prop('disabled', false);
-        } 
-
-    });
- */}
-
-
+// Form: submit calculation......................
     $('#doors_form').on('submit', function(event){
     event.preventDefault();
     $("#result").empty();
     console.log("calculator works!")  // sanity check
-    
     
     $('html, body').animate({
         scrollTop: $("#result").offset().top
@@ -155,9 +129,22 @@ $('input:radio[name="code"]').each( function(index) {
     
     $('#result').hide().fadeIn(800);
     calculate_form();
-
     });
 
+// Form: submit order.......................................
+    formData = {}
+    $('#ord').on('click', function(event){
+    event.preventDefault();
+    var arrayform = $("#doors_form").serializeArray();
+    $(arrayform).each(function(index, obj){
+        formData[obj.name] = obj.value;
+    });
+    console.log('to jest formdata');
+    console.log(formData);
+    order();
+    });
+
+// function: CALCULATE............................
     function calculate_form() {
     console.log("calculation begins...") // sanity check
     $.ajax({
@@ -181,26 +168,24 @@ $('input:radio[name="code"]').each( function(index) {
         },
     });
     };
-const ob = {
-name : "Marcin",
-pet : {
-    name : "Szamson",
-    color : "brown",
-    speed : 1000000
-}
-};
+
+// function: order............................
     function order() {
         console.log("ordering begins...")
+        console.log("this is formData...")
+        console.log(formData)
         $.ajax({
             url: "{% url 'ajax_ord' %}",
             type: "POST",
-            contentType : "application/json",
-            data : JSON.stringify(ob),
-            dataType : "json"
-
-
+            data : formData,
+            
             success : function(payload) {
                 console.log('displaying payload')
+                console.log('...................')
+                console.log(payload.t);
+                console.log(payload.w);
+                console.log(payload.h);
+                console.log(payload.d);
                 if (payload.sent) {
                     alert('Sent!')
                 } else {
