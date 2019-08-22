@@ -5,6 +5,6 @@ admin.site.register(Discount)
 
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'w', 'h', 'd')
+    list_display = ('user', 'door', 'w', 'h', 'd', 'status')
 # Register your models here.
 admin.site.register(Order, OrderAdmin)
