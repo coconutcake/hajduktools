@@ -25,19 +25,19 @@
     <script src="https://unpkg.com/tippy.js@4"></script>
     
     <script>
-// START: smooth fade in 
-$("body").hide();
-$('div').removeClass('initiallyHidden');
-$('.navbar').hide();
+
+
+
+reveal_board()
 
 $(document).ready(function(){
+    showup()
     setTimeout(() => {
         $("body").hide().fadeIn(1000);
     }, 100);
-    });
-// END: smooth fade in
+});
 
-// START: scroll fixed bar
+// Scroll fixed bar...................................
 $(window).bind('scroll', function () {
     if ($(window).scrollTop() > 50) {
         $('.navbar').slideDown( "fast" );
@@ -45,45 +45,19 @@ $(window).bind('scroll', function () {
         $('.navbar').slideUp('fast');
     }
 });
-// END: scroll fixed bar
 
+// Tippy launcher.....................................
   tippy('label', {
   followCursor: "horizontal",
   animateFill: false,
-  animation: 'shift-away', // or 'shift-toward', 'fade', ...
+  animation: 'shift-away',
   duration: 200,
   arrow: true,
 })  
 
-// VARS
-var ob = {}
 
 
-function reveal_board() {
-$('h1,img,input,button').each(function (index) {
-    $(this).hide();
-});
 
- $("h1,img,input,button").each(function(index) {  
-       var that = this;
-        var t = setTimeout(function() { 
-            $(that).hide().show(500); 
-        }, 20 * index);        
-    });
-
-}
-reveal_board()
-{/* $('img').each(function (index, value) {
-    $(this).hide().show(2000);
-    
-
-}); */}
-
-function clearme() {  
-    console.log('cleared')
-    $('input[type="number"]').val('')
-    $( "#result" ).empty();
-}
     
 
 
@@ -117,7 +91,7 @@ $('input:radio[name="code"]').each( function(index) {
 }); 
 
 
-// Form: submit calculation......................
+// Form: Submit calculation & slide............................
     $('#doors_form').on('submit', function(event){
     event.preventDefault();
     $("#result").empty();
@@ -131,7 +105,7 @@ $('input:radio[name="code"]').each( function(index) {
     calculate_form();
     });
 
-// Form: submit order.......................................
+// Form: Submit order JSON.....................................
     formData = {}
     $('#ord').on('click', function(event){
     event.preventDefault();
@@ -142,10 +116,33 @@ $('input:radio[name="code"]').each( function(index) {
     console.log('to jest formdata');
     console.log(formData);
     order();
-    
     });
+// function: SHOWUP........................................
+    function showup() {
+        $("body").hide();
+        $('div').removeClass('initiallyHidden');
+        $('.navbar').hide();
+    }
+// function: CLEAR INPUTS..................................
+    function clearme() {  
+        console.log('cleared')
+        $('input[type="number"]').val('')
+        $( "#result" ).empty();
+    }
+// function: REVEAL PAGE....................................
+    function reveal_board() {
+        $('h1,img,input,button').each(function (index) {
+            $(this).hide();
+        });
+        $("h1,img,input,button").each(function(index) {  
+            var that = this;
+            var t = setTimeout(function() { 
+                $(that).hide().show(500); 
+                }, 20 * index);        
+        });
 
-// function: CALCULATE............................
+    }
+// function: CALCULATE.....................................
     function calculate_form() {
     console.log("calculation begins...") // sanity check
     $.ajax({
@@ -157,7 +154,6 @@ $('input:radio[name="code"]').each( function(index) {
             console.log(json.isvalid);
             console.log(json.nosna);
             console.log(json.maxm2);
-
             if (json.isvalid) {
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
@@ -165,12 +161,11 @@ $('input:radio[name="code"]').each( function(index) {
             } else {
                 alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
-
         },
     });
     };
 
-// function: order............................
+// function: ORDER......................................
     function order() {
         console.log("ordering begins...")
         console.log("this is formData...")
@@ -186,7 +181,10 @@ $('input:radio[name="code"]').each( function(index) {
                 console.log(payload.t);
                 console.log(payload.w);
                 console.log(payload.h);
+                console.log('displaying d.........')
                 console.log(payload.d);
+                console.log('displaying what is d.........')
+                console.log(payload.error);
                 if (payload.sent) {
                     alert('Sent!')
                 } else {

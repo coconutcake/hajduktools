@@ -118,24 +118,21 @@ def ajax_ord(request):
         payload['d'] = d
         payload['t'] = t
         payload['sent'] = 'sent'
-
+        # instancja
         form = OrderForm(request.POST)
         
         if form.is_valid():
-
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.w = int(w)
+            # stworz obiekt i instancje
+            obj = form.save(commit=False) # poczekaj z zapisem
+            obj.user = request.user # wrzuć aktualnie zalogowanego usera do pola form.user
+            obj.w = int(w) # wrzuć reszte do pól
             obj.h = int(h)
-            obj.d = int(d)
-            
-            obj.door = Door.objects.get(pk=t)
-            obj.save()
-
-        #     form.save()
-        #     payload['sent'] = 'sent'
-        # else:
-        #     payload['sent'] = 'sentt'
-
-        return JsonResponse(payload)
-        # return JsonResponse(payload)
+            if d is None:
+                payload['error'] = 'd is None'
+            elif type(d) is str:
+                payload['error'] ='d is string!'
+                if d != "None":
+                    obj.d = int(d)
+            obj.door = Door.objects.get(pk=t) #wybierz dzwi z modelu Door po kodzie id.
+            obj.save() # zapisz
+        return JsonResponse(payload) # wyślij payload
