@@ -117,7 +117,41 @@ $('input:radio[name="code"]').each( function(index) {
 }); 
 
 
+<<<<<<< HEAD
 // Form: submit calculation......................
+=======
+
+
+{/* 
+   $('input:radio[name="code"][code^="S"][code^="S"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', true);
+        } 
+
+    });
+   $('input:radio[name="code"][code^="C"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', false);
+        } 
+
+    });
+   $('input:radio[name="code"][code^="T"]').change(
+    function(){
+        if ($(this).is(':checked')) {
+            console.log('ok')// append goes here
+            $('input[name="depth"]').prop('disabled', false);
+        } 
+
+    });
+ */}
+
+
+
+>>>>>>> c5530089c63d5ed2553b8d67d23d2fedb8438f29
     $('#doors_form').on('submit', function(event){
     event.preventDefault();
     $("#result").empty();
