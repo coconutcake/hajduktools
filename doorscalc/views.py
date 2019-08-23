@@ -128,6 +128,7 @@ def ajax_ord(request):
                 converted[i] = literal_eval(v)
                 payload[i] = literal_eval(v)
                 
+                
             except ValueError:
                 pass
 
@@ -138,10 +139,6 @@ def ajax_ord(request):
         payload['converted'] = converted
         payload['json_payload'] = json_payload
         payload['json_payload2'] = json_payload2
-        payload['w'] = w
-        payload['h'] = h
-        payload['d'] = d
-        payload['t'] = t
         payload['sent'] = 'sent'
         # instancja
         form = OrderForm(request.POST)
