@@ -126,6 +126,8 @@ def ajax_ord(request):
         for i, v in converted.items():
             try:
                 converted[i] = literal_eval(v)
+                payload[i] = literal_eval(v)
+                
             except ValueError:
                 pass
 
