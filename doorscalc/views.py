@@ -127,7 +127,7 @@ def ajax_ord(request):
             try:
                 converted[i] = literal_eval(v)
                 payload[i] = literal_eval(v)
-                
+
                 
             except ValueError:
                 pass
@@ -147,8 +147,8 @@ def ajax_ord(request):
             # stworz obiekt i instancje
             obj = form.save(commit=False) # poczekaj z zapisem
             obj.user = request.user # wrzuć aktualnie zalogowanego usera do pola form.user
-            obj.w = int(w) # wrzuć reszte do pól
-            obj.h = int(h)
+            obj.w = converted.get("width", "") # wrzuć reszte do pól
+            obj.h = converted.get("height", "")
             if d is None:
                 payload['error'] = 'd is None'
             elif type(d) is str:
