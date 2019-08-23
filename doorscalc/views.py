@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.apps import apps
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-
+import json
+from ast import literal_eval
 # def doors_list(request):
 #     doors_objects = Door.objects.all()
 #     template = loader.get_template('doorscalc/index.html')
@@ -106,13 +107,35 @@ def ajax(request):
 @csrf_exempt
 def ajax_ord(request):
     if request.method == 'POST':
+
+
         w = request.POST.get('width', 'None')
         h = request.POST.get('height', 'None')
         d = request.POST.get('depth', 'None')
         t = request.POST.get('code', 'None')
 
+        # konwersja typow danych do nowego slownika
+        converted = {}
         payload = {}
+        payload2 = {}
 
+        for key, values in request.POST.items():
+            converted[key] = values
+            payload[key] = values
+
+        for i, v in converted.items():
+            try:
+                converted[i] = literal_eval(v)
+            except ValueError:
+                pass
+
+        json_payload = json.dumps(converted)
+        json_payload2 = json.loads(json_payload)
+
+        payload['payload2'] = payload2
+        payload['converted'] = converted
+        payload['json_payload'] = json_payload
+        payload['json_payload2'] = json_payload2
         payload['w'] = w
         payload['h'] = h
         payload['d'] = d

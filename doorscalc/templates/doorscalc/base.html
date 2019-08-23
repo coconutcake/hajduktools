@@ -164,6 +164,7 @@ function clearobj(obj) {
         url : "{% url 'ajax' %}", // the endpoint
         type : "POST", // http method
         data : $('#doors_form').serialize(), // data sent with the post request
+        
         // handle a successful response
         success : function(json) {
             console.log(json.isvalid);
@@ -182,24 +183,22 @@ function clearobj(obj) {
 
 // function: ORDER......................................
     function order() {
-        console.log("ordering begins...")
-        console.log("this is formData...")
-        console.log(formData)
+        console.log("Placing order..................")
         $.ajax({
             url: "{% url 'ajax_ord' %}",
             type: "POST",
+            dataType: 'json',
+
             data : formData,
-            
             success : function(payload) {
-                console.log('displaying payload')
-                console.log('...................')
-                console.log(payload.t);
-                console.log(payload.w);
-                console.log(payload.h);
-                console.log('displaying d.........')
-                console.log(payload.d);
-                console.log('displaying what is d.........')
-                console.log(payload.error);
+                console.log('.............................')
+                console.log('Payload: Begin')
+                console.log('Displaying converted received payload.........')
+                console.log(payload.converted)
+                console.log('Displaying what is hidden by the locals.........')
+                console.log(payload.width)
+  
+                console.log('.............................')
                 if (payload.sent) {
                     alert('Your order has been sent!')
                 } else {
