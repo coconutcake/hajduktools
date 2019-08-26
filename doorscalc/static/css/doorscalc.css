@@ -1,7 +1,4 @@
-#formularz {
-    padding: 1rem;
 
-}
 #price {
     background: #4fc296;
     padding: 1rem;
@@ -30,4 +27,13 @@ button {
     margin-top: 0.5rem;
 
 
+}
+
+.Pending:after {
+    content: " \f021";
+    font: normal normal normal 14px/1 FontAwesome;
+    color: orange;
+}
+.cancel_order {
+    color: red!important;
 }

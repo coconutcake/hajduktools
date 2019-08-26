@@ -56,7 +56,11 @@ $(window).bind('scroll', function () {
 })  
 
 
-
+// function: update order div................................................
+function updateOrderDiv()
+{ 
+    $( "#orders" ).load(window.location.href + " #orders" );
+}
 
     
 
@@ -105,6 +109,10 @@ $('input:radio[name="code"]').each( function(index) {
     calculate_form();
     });
 
+
+
+
+
 // Form: Submit order JSON.....................................
     formData = {}
     $('#ord').on('click', function(event){
@@ -117,8 +125,11 @@ $('input:radio[name="code"]').each( function(index) {
             console.log('SANITY CHECK: cash:');
             console.log(formData);
             order();
+            
             clearme();
             clearobj(formData);
+            updateOrderDiv();
+            
         } else {
             return false;
         }
@@ -202,13 +213,37 @@ function clearobj(obj) {
   
                 console.log('.............................')
                 if (payload.sent) {
-                    alert('Your order has been sent!')
+                    alert('Your order has been sent!');
+                    updateOrderDiv();
+                    
                 } else {
-                    alert('Error')
+                    alert('Error');
                 }
             }
         });
+
     };
+
+// function: delete_order......................................
+$('body').on("click", ".cancel_order" ,function() {
+        var id = $(this).attr('id');
+        console.log('this is id: '+id)
+        $.ajax({
+            url: "{% url 'delete_order' %}",
+            type: "POST",
+            dataType: 'json',
+            data: { 'id' : id },
+
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
+            success: function(response){
+                alert(response.status)
+                updateOrderDiv();
+                    
+            }
+        });
+    });
     </script>
   </body>
 </html>

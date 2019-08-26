@@ -13,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 import json
 from ast import literal_eval
+from django.shortcuts import get_object_or_404
+from django.views.decorators.http import require_POST
 # def doors_list(request):
 #     doors_objects = Door.objects.all()
 #     template = loader.get_template('doorscalc/index.html')
@@ -33,10 +35,12 @@ def doors_list(request):
 
     calc_form = DoorForm()
     doors_objects = Door.objects.order_by('code')
+    user_order = Order.objects.filter(user=request.user)
     template = loader.get_template('doorscalc/index.html')
     context = {
         'doors_objects': doors_objects,
         'calc_form': calc_form,
+        'user_order': user_order,
 
     }
     return HttpResponse(template.render(context, request))
@@ -158,3 +162,19 @@ def ajax_ord(request):
             obj.door = Door.objects.get(pk=t) #wybierz dzwi z modelu Door po kodzie id.
             obj.save() # zapisz
         return JsonResponse(payload) # wyślij payload
+
+def delete_order(request):
+    responce = {}
+    if request.method == 'POST':
+        order_id = request.POST.get('id', 'None')
+        ord_id = int(order_id)
+        query = Order.objects.get(pk=ord_id)    
+        query.delete()
+        responce['status'] = 'Deleted!'
+    else:
+        responce['status'] = 'error'
+    return JsonResponse(responce)
+
+    # query = Order.objects.get(pk=order_pk)
+    # query.delete()
+    # return HttpResponse("Deleted!")
