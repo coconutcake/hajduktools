@@ -13,24 +13,24 @@
               <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
               <p>Here are Your orders:</p>
                 <div class="labels row">
-                  <div class="col">
+                  <div class="col-6">
                     <span>Measurement:</span>
                   </div>
-                  <div class="col">
+                  <div class="col-4">
                     <span>Status:</span>
                   </div>
-                  <div class="col">
-                    <span>Cancel:</span>
+                  <div class="col-2">
+                    <span></span>
                   </div>
                 </div>
                   <div class="orders row">
-                    <div class="col">
+                    <div class="col-6">
                       <p><i class="fa fa-square-o" aria-hidden="true"></i> {{ u.w }}x{{ u.h }}x{{ u.d }}</p>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                       <p class="{{ u.status }}"> {{ u.status }}</p>
                     </div>
-                    <div class="col">
+                    <div class="col-2">
                       <button class="cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                   </div>
