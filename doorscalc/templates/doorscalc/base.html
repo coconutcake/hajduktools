@@ -58,7 +58,12 @@ $(window).bind('scroll', function () {
 
 // function: update order div................................................
 function updateOrderDiv()   { 
+    var orders = $('#orders').html();
+    
     $( "#orders" ).load(window.location.href + " #orders" );
+
+    
+      
 };
 
     
@@ -93,6 +98,20 @@ $('input:radio[name="code"]').each( function(index) {
     });
 }); 
 
+// window toggling function..............................
+
+
+function toggleWindows() { 
+    $('#foreg').fadeToggle('slow', function() {
+
+    });
+    $('#modal').toggle('fast', function() {
+
+    });
+ }
+
+// Close button.................................................
+
 
 // Form: Submit calculation & slide............................
     $('#doors_form').on('submit', function(event){
@@ -109,8 +128,7 @@ $('input:radio[name="code"]').each( function(index) {
     });
 
 
-
-
+//
 
 // Form: Submit order JSON.....................................
     formData = {}
@@ -181,15 +199,21 @@ function clearobj(obj) {
             console.log(json.nosna);
             console.log(json.maxm2);
             if (json.isvalid) {
+                
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
-                $('#result').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div>')
+                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p><button id="close_calc">Close</button></div>')
+                toggleWindows();
+                
+                
             } else {
                 alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
         },
     });
     };
+
+
 
 // function: ORDER......................................
     function order() {
@@ -243,6 +267,28 @@ $('body').on("click", ".cancel_order" ,function() {
             }
         });
     });
+
+$('body').on("click", "#close_calc" ,function() {
+    console.log('clicked')
+    toggleWindows();
+});
+// function: live refreshing order................................
+
+
+
+
+
+
+var s_class = null;
+
+setInterval(function () {
+   updateOrderDiv();
+}, 10000);
+
+$("#stat").bind("cChange", function () {
+    alert('something changed')
+
+});
     </script>
   </body>
 </html>

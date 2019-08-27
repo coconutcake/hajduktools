@@ -29,11 +29,71 @@ button {
 
 }
 
-.Pending:after {
-    content: " \f021";
-    font: normal normal normal 14px/1 FontAwesome;
-    color: orange;
-}
+
 .cancel_order {
     color: red!important;
 }
+
+
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+  }
+   
+  .spinner:before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #000;
+    animation: spinner .2s linear infinite;
+  }
+
+  .Pending:after { 
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    border-radius: 50%;
+    border: 2px solid rgb(221, 32, 32);
+    border-top-color: rgb(94, 14, 14);
+    animation: spinner .9s linear infinite;
+}
+.Accepted:after {
+    content:"\f00c";
+    font-family: FontAwesome;
+    margin-left: 10px;
+
+}
+.jumbotron {
+    position: absolute;
+    width: 85vw;
+    height: 85vh;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    z-index: 99;
+  }
+.foreground {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border: 1px dashed rgb(54, 54, 54);
+    z-index: 98;
+    opacity: 0.5;
+    background: black;
+
+}
+  
