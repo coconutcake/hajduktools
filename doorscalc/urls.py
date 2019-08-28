@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.doors_list, name='doors_list'),
 
     path('calc/', views.ajax, name='ajax'),
+    path('c/', views.ajax_calc, name='ajax_calc'),
     path('ord/', views.ajax_ord, name='ajax_ord'),
     path('delorder/', views.delete_order, name='delete_order'),
 

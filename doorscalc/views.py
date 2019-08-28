@@ -178,3 +178,68 @@ def delete_order(request):
     # query = Order.objects.get(pk=order_pk)
     # query.delete()
     # return HttpResponse("Deleted!")
+def ajax_calc(request):
+    payload = {}
+    if request.method == 'POST':
+        for key, values in request.POST.items():
+            payload[key] = values
+
+
+
+        c = request.POST.get('code', 'None')
+        w = request.POST.get('width', 'None')
+        h = request.POST.get('height', 'None')
+        d = request.POST.get('depth', 'None')
+
+        selected_doors = Door.objects.get(pk=c) 
+
+        formula = eval(selected_doors.formula)
+        ob_formula = eval(selected_doors.ob_formula)
+        nosna_max_ = eval(str(selected_doors.nosna_max))
+        nosna_ = eval(selected_doors.nosna)
+        nosna = float(nosna_/1000000)
+
+        m2 = formula/1000000
+        netprice = round(m2*float(selected_doors.multiplier))
+        discount = float(selected_doors.discount.discount/100)
+        discount_price = round(float(netprice-(netprice*discount)))
+        ob = ob_formula/1000
+        obx = round(ob,1)
+        obxp = 0.5 * math.ceil(2.0 * obx)
+        obxpp = obxp*5
+        checked = selected_doors.gasket
+
+        data = {}
+
+        data['nosna'] = nosna
+        data['maxm2'] = selected_doors.nosna_max
+
+        def compare(n,m):
+            if n <= m:
+                return True
+            else:
+                return False
+
+        isvalid = compare(nosna, selected_doors.nosna_max)
+        data['isvalid'] = isvalid
+
+        if not checked:
+            data['gasket'] = 'not included'
+            calcall = netprice+obxpp
+            data['final_price'] = round(calcall-(calcall*discount))
+        else:
+            data['gasket'] = 'included'
+            data['final_price'] = discount_price
+
+        data['formula'] = selected_doors.formula
+        data['m2'] = m2
+        data['netprice'] = netprice
+        data['discount'] = selected_doors.discount.discount
+        data['discount2'] = discount
+        data['discount_price'] = discount_price
+        data['obx'] = obx
+        data['obxp'] = obxp
+        data['obxpp'] = obxpp
+
+        return JsonResponse(data)
+        
