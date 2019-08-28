@@ -84,8 +84,8 @@ button {
     position: absolute;
     margin-left: 10px;
     font-family: FontAwesome;
-    color: #4fc296;
-    animation: zooming .9s linear infinite;
+    color: #dba839;
+    animation: zooming 1s linear infinite;
 
 }
 .Accepted:after {
@@ -120,4 +120,8 @@ button {
 }
 .bg-light-2 {
     background: rgb(240, 240, 240);
+}
+
+h1 {
+    color: rgb(46, 46, 46);
 }

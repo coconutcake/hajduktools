@@ -5,7 +5,7 @@
     
         <div class="row initiallyHidden">
 
-          <div class="col-12 col-lg-6 bg-light-2 p-4 rounded">
+          <div class="col-12 col-lg-8 bg-light-2 p-4 rounded">
             <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
             <hr>
@@ -28,7 +28,7 @@
                 
                     <div class=""><p id="measure" class=""><i class="fa fa-square-o" aria-hidden="true"></i> {{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
                     <div><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
-                    <div class=""><button class="cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                    <div class=""><button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button></div>
                     
                 </div>
                 
@@ -39,9 +39,10 @@
             </div>
             
 
-            <div class="col-12 col-lg-6 bg-light p-4">
+            <div class="col-12 col-lg-4 bg-light p-4">
               <div id='formularz' class='initiallyHidden'>
-                <h1><i class="fa fa-cart-plus" aria-hidden="true"></i> Doorscalc</h1><p>Pick appriopriate door type:</p>
+                <h1><i class="fa fa-calculator" aria-hidden="true"></i>
+ Doorscalc</h1><p>Pick appriopriate door type:</p>
                 <hr>
                     <form method="POST" id="doors_form">
                     {% csrf_token %}
