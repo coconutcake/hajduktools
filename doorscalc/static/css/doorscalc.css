@@ -125,3 +125,13 @@ button {
 h1 {
     color: rgb(46, 46, 46);
 }
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+.helptext {
+    color: rgb(165, 165, 165);
+    font-size: .8em;
+}

@@ -6,6 +6,12 @@
         <div class="row initiallyHidden">
 
           <div class="col-12 col-lg-8 bg-light-2 p-4 rounded">
+
+         
+
+
+
+
             <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
             <hr>
@@ -34,16 +40,32 @@
                 
                      
                   {% endfor %}
+                  <select>
+                  {% for h in handles %}
+                      <option value="{{ h.pk }}">{{ h.pk }}</option>
+                  {% endfor %}
+                  </select>
               </div>
               <hr>  
             </div>
             
 
             <div class="col-12 col-lg-4 bg-light p-4">
+
               <div id='formularz' class='initiallyHidden'>
                 <h1><i class="fa fa-calculator" aria-hidden="true"></i>
  Doorscalc</h1><p>Pick appriopriate door type:</p>
                 <hr>
+
+
+              <form action="/your-name/" method="post">
+              {% csrf_token %}
+              {{ ord_form.as_p }}
+              <input type="submit" value="Submit">
+              </form>
+
+
+
                     <form method="POST" id="doors_form">
                     {% csrf_token %}
                     {% for door in doors_objects %}

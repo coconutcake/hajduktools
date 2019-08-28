@@ -34,13 +34,18 @@ def index(request):
 def doors_list(request):
 
     calc_form = DoorForm()
+    ord_form = OrderForm()
     doors_objects = Door.objects.order_by('code')
     user_order = Order.objects.filter(user=request.user)
     template = loader.get_template('doorscalc/index.html')
+
+    handles = Order.objects.values_list('handle_site')
     context = {
         'doors_objects': doors_objects,
         'calc_form': calc_form,
+        'ord_form': ord_form,
         'user_order': user_order,
+        'handles': handles,
 
     }
     return HttpResponse(template.render(context, request))
