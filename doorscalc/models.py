@@ -46,11 +46,11 @@ class Door(models.Model):
 class Order(models.Model):
     P = 'Pending'
     A = 'Accepted'
-    O = 'Ordered'
+    O = 'Producing'
     stats = [
         (P, 'Pending'),
         (A, 'Accepted'),
-        (O, 'Ordred'),
+        (O, 'Producing'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     door = models.ForeignKey('Door', verbose_name=u"Type", on_delete=models.CASCADE, blank=True, null=True)

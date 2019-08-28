@@ -35,7 +35,17 @@ button {
 }
 
 
-
+@keyframes zooming {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.2,1.2);
+    }
+    100% {
+        transform: scale(1,1);
+    }
+}
 @keyframes spinner {
     to {transform: rotate(360deg);}
   }
@@ -68,10 +78,23 @@ button {
     border-top-color: rgb(243, 243, 243);
     animation: spinner .9s linear infinite;
 }
+.Producing:after {
+    content:"\f275";
+    box-sizing: border-box;
+    position: absolute;
+    margin-left: 10px;
+    font-family: FontAwesome;
+    color: #4fc296;
+    animation: zooming .9s linear infinite;
+
+}
 .Accepted:after {
     content:"\f00c";
+    box-sizing: border-box;
+    position: absolute;
     font-family: FontAwesome;
     margin-left: 10px;
+    color: #4fc296;
 
 }
 .jumbotron {
