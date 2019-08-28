@@ -12,7 +12,7 @@ from django.apps import apps
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 import json
-from ast import literal_eval
+import ast
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 # def doors_list(request):
@@ -92,9 +92,7 @@ def ajax(request):
         else:
             data['gasket'] = 'included'
             data['final_price'] = discount_price
-        # formula1 = getattr(selected_doors,'formula')
-        
-        
+
         data['formula'] = selected_doors.formula
         data['m2'] = m2
         data['netprice'] = netprice
@@ -104,10 +102,8 @@ def ajax(request):
         data['obx'] = obx
         data['obxp'] = obxp
         data['obxpp'] = obxpp
-
-
-        # data['formula1'] = formula1
         return JsonResponse(data)
+
 @csrf_exempt
 def ajax_ord(request):
     if request.method == 'POST':
@@ -122,6 +118,7 @@ def ajax_ord(request):
         converted = {}
         payload = {}
         payload2 = {}
+        converted2 = {}
 
         for key, values in request.POST.items():
             converted[key] = values
@@ -129,10 +126,8 @@ def ajax_ord(request):
 
         for i, v in converted.items():
             try:
-                converted[i] = literal_eval(v)
-                payload[i] = literal_eval(v)
-
-                
+                converted2[i] = ast.literal_eval(v)
+                payload[i] = ast.literal_eval(v)
             except ValueError:
                 pass
 
@@ -140,7 +135,7 @@ def ajax_ord(request):
         json_payload2 = json.loads(json_payload)
 
         payload['payload2'] = payload2
-        payload['converted'] = converted
+        payload['converted'] = converted2
         payload['json_payload'] = json_payload
         payload['json_payload2'] = json_payload2
         payload['sent'] = 'sent'

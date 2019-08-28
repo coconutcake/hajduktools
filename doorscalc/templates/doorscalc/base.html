@@ -57,13 +57,8 @@ $(window).bind('scroll', function () {
 
 
 // function: update order div................................................
-function updateOrderDiv()   { 
-    var orders = $('#orders').html();
-    
-    $( "#orders" ).load(window.location.href + " #orders" );
-
-    
-      
+function updateOrderDiv()   {  
+    $("#orders").load(window.location.href + " #orders" );
 };
 
     
@@ -130,27 +125,6 @@ function toggleWindows() {
 
 //
 
-// Form: Submit order JSON.....................................
-    formData = {}
-    $('#ord').on('click', function(event){
-    event.preventDefault();
-        if(confirm("Are you sure you want to order it?"))   {
-            var arrayform = $("#doors_form").serializeArray();
-            $(arrayform).each(function(index, obj){
-            formData[obj.name] = obj.value;
-            });
-            console.log('SANITY CHECK: cash:');
-            console.log(formData);
-            order();
-            
-            clearme();
-            clearobj(formData);
-            updateOrderDiv();
-            
-        } else {
-            return false;
-        }
-    });
 
 // function: clear object.................................
 function clearobj(obj) {
@@ -202,7 +176,7 @@ function clearobj(obj) {
                 
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
-                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p><button id="close_calc">Close</button></div>')
+                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
                 toggleWindows();
                 
                 
@@ -213,6 +187,30 @@ function clearobj(obj) {
     });
     };
 
+// Form: Submit order JSON.....................................
+    formData = {}
+    $('body').on("click", "#ord" ,function(event) {
+  
+    event.preventDefault();
+        if(confirm("Are you sure you want to order it?"))   {
+            
+            var arrayform = $("#doors_form").serializeArray();
+            $(arrayform).each(function(index, obj){
+            formData[obj.name] = obj.value;
+            });
+            console.log('SANITY CHECK: cash:');
+            console.log(formData);
+            order();
+            
+            clearme();
+            clearobj(formData);
+            toggleWindows();
+            updateOrderDiv();
+            
+        } else {
+            return false;
+        }
+    });
 
 
 // function: ORDER......................................
@@ -233,10 +231,11 @@ function clearobj(obj) {
                 console.log(payload.width)
                 console.log(payload.height)
                 console.log(payload.depth)
-  
+                
+
                 console.log('.............................')
                 if (payload.sent) {
-                    alert('Your order has been sent!');
+                    
                     updateOrderDiv();
                     
                 } else {
@@ -279,16 +278,13 @@ $('body').on("click", "#close_calc" ,function() {
 
 
 
-var s_class = null;
+
 
 setInterval(function () {
    updateOrderDiv();
 }, 10000);
 
-$("#stat").bind("cChange", function () {
-    alert('something changed')
 
-});
     </script>
   </body>
 </html>

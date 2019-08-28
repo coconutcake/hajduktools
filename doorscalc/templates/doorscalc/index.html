@@ -5,9 +5,10 @@
     
         <div class="row initiallyHidden">
 
-          <div class="col-12 col-lg-6 bg-danger p-4 rounded">
+          <div class="col-12 col-lg-6 bg-light-2 p-4 rounded">
             <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
+            <hr>
               <div class="d-flex justify-content-between p-2 mb-1">
                 <div class="">
                   <span>Measurement:</span>
@@ -21,20 +22,27 @@
               </div>
               
               <div id="orders">
+              <hr>
                   {% for u in user_order %}  
                 <div class="d-flex justify-content-between">
+                
                     <div class=""><p id="measure" class=""><i class="fa fa-square-o" aria-hidden="true"></i> {{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
                     <div><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
                     <div class=""><button class="cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button></div>
+                    
                 </div>
+                
                      
                   {% endfor %}
-              </div>  
+              </div>
+              <hr>  
             </div>
+            
 
             <div class="col-12 col-lg-6 bg-light p-4">
               <div id='formularz' class='initiallyHidden'>
                 <h1><i class="fa fa-cart-plus" aria-hidden="true"></i> Doorscalc</h1><p>Pick appriopriate door type:</p>
+                <hr>
                     <form method="POST" id="doors_form">
                     {% csrf_token %}
                     {% for door in doors_objects %}
@@ -46,7 +54,7 @@
                     <button type="submit" id="sub" class="shadow btn btn-success"><i class="fa fa-calculator" aria-hidden="true"></i>Calculate</button><i class="fas fa-euro-sign"></i> 
                     <button name='clear' class="shadow btn btn-secondary"><i class="fa fa-times" aria-hidden="true"></i>Clear</button>
                     <button name='begin' class="shadow btn btn-secondary"><i class="fa fa-file" aria-hidden="true"></i>New</button>    
-                    <button id="ord" class="shadow btn btn-danger"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button> 
+                     
                     </form>
               </div> 
             </div>
