@@ -15,14 +15,17 @@
             <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
             <hr>
-              <div class="d-flex justify-content-between p-2 mb-1">
-                <div class="">
+              <div class="row">
+                <div class="col-4 col-sm-3 col-lg-3">
+                  <span>Customer:</span>
+                </div>
+                <div class="col-4 col-sm-3 col-lg-4 d-none d-sm-block">
                   <span>Measurement:</span>
                 </div>
-                <div class="">
+                <div class="col-4 col-lg-3">
                   <span>Status:</span>
                 </div>
-                <div class="">
+                <div class="col-4 col-lg-2">
                   <span></span>
                 </div>
               </div>
@@ -30,21 +33,20 @@
               <div id="orders">
               <hr>
                   {% for u in user_order %}
-                <div class="d-flex justify-content-between">
-
-                    <div class=""><p id="measure" class=""><i class="fa fa-square-o" aria-hidden="true"></i> {{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
-                    <div><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
-                    <div class=""><button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button></div>
-
+                <div class="row">
+                    <div class="col-4 col-sm-3 col-lg-3"><p id="cust" class="{{ u.customer }}"> {{ u.customer }}</p></div>
+                    <div class="col-4 col-sm-3 col-lg-4 d-none d-sm-block"><p id="measure" class="">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
+                    <div class="col-4 col-sm-3 col-lg-3"><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
+                    <div class="col-4 col-sm-3 col-lg-2">
+                    <div class="d-flex justify-content-end">
+                      <button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    
+                    
+                    </div>
                 </div>
-
-
                   {% endfor %}
-                  <select>
-                  {% for h in handles %}
-                      <option value="{{ h.pk }}">{{ h.pk }}</option>
-                  {% endfor %}
-                  </select>
+                  
               </div>
               <hr>
             </div>
@@ -65,7 +67,7 @@
               {% for door in doors_objects %}
                 <p class="excluded" id="{{ door.id }}" value="{{ door.excluded }}" style="display:none"></p>
               {% endfor %}
-              <input type="submit" value="Order" class="btn btn-danger">
+              <input type="submit" id='sub' value="Order" class="btn btn-danger">
               <a name="" id="calc" class="btn btn-success" role="button">Calculate</a>
               </form>
 

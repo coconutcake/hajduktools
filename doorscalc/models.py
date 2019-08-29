@@ -71,11 +71,10 @@ class Order(models.Model):
     h = models.DecimalField(verbose_name=u"Height", max_digits=3, decimal_places=0, blank=True, null=True)
     d = models.DecimalField(verbose_name=u"Depth", max_digits=3, decimal_places=0, blank=True, null=True)
     status = models.CharField(verbose_name=u"Status", help_text="Status zamówienia", choices=stats, default=P, max_length=50, blank=True, null=True)
-    published_date = models.DateTimeField(blank=True, null=True)
     
     handle_site = models.CharField(verbose_name=u"Handle", help_text="Which site takes handle?", choices=sides, max_length=50, default=1, blank=False, null=True)
     inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=sides, max_length=50, default=Top, blank=False, null=True)
-   
+    customer = models.CharField(verbose_name=u"Customer", help_text="Your customer name", default="", max_length=100, blank=False, null=True)
 
     def publish(self):
         self.user = request.user

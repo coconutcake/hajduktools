@@ -190,17 +190,37 @@ function clearobj(obj) {
 
 // Form: Submit order JSON.....................................
     formData = {}
+
+    $('#d_form').on('submit', function(event){
+        event.preventDefault();
+        console.log("form submitted!")  // sanity check
+        var arrayform = $("#d_form").serializeArray();
+        $(arrayform).each(function(index, obj){
+        formData[obj.name] = obj.value;
+        });
+        
+
+        order();
+        clearme();
+        clearobj(formData);
+        updateOrderDiv();
+        
+    });
+
+
+
     $('body').on("click", "#ord" ,function(event) {
 
     event.preventDefault();
         if(confirm("Are you sure you want to order it?"))   {
 
-            var arrayform = $("#doors_form").serializeArray();
+            var arrayform = $("#d_form").serializeArray();
             $(arrayform).each(function(index, obj){
             formData[obj.name] = obj.value;
             });
             console.log('SANITY CHECK: cash:');
             console.log(formData);
+            
             order();
 
             clearme();
@@ -217,31 +237,27 @@ function clearobj(obj) {
 // function: ORDER......................................
     function order() {
         console.log("Placing order..................")
+        console.log(formData);
         $.ajax({
-            url: "{% url 'ajax_ord' %}",
+            url: "{% url 'ajax_ord2' %}",
             type: "POST",
             dataType: 'json',
 
             data : formData,
+            
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+            },
             success : function(payload) {
                 console.log('.............................')
                 console.log('Payload: Begin')
-                console.log('Displaying converted received payload.........')
-                console.log(payload.converted)
-                console.log('Displaying what is hidden in converted dictionary.........')
-                console.log(payload.width)
-                console.log(payload.height)
-                console.log(payload.depth)
-
-
                 console.log('.............................')
-                if (payload.sent) {
+                console.log('is POST request?: '+payload.if_post);
+                console.log('is form object?: '+payload.if_form);
+                console.log('is form valid?: '+payload.if_valid);
+                    
 
-                    updateOrderDiv();
-
-                } else {
-                    alert('Error');
-                }
+                
             }
         });
 

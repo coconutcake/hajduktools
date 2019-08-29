@@ -15,8 +15,8 @@ class OrderForm(forms.ModelForm):
             (32, 'Restaurants'),
         )
             
-            fields = ['door', 'w', 'h', 'd', 'handle_site', 'inlet_site',]
-            # exclude = ('user',)
+            fields = ['door', 'w', 'h', 'd', 'handle_site', 'inlet_site', 'customer',]
+            exclude = ('user',)
 
             widgets = {
                 'door': forms.RadioSelect(attrs={
@@ -48,6 +48,11 @@ class OrderForm(forms.ModelForm):
                 }),
                 'inlet_site': forms.Select(attrs={
                     'class': 'shadow-sm form-control'
+                }),
+                'customer': forms.Textarea(attrs={
+                    'class': 'shadow-sm form-control',
+                    'rows': 2, 
+                    'cols':1
                 }),
                 
             }

@@ -146,7 +146,8 @@ def ajax_ord(request):
         payload['sent'] = 'sent'
         # instancja
         form = OrderForm(request.POST)
-        
+
+
         if form.is_valid():
             # stworz obiekt i instancje
             obj = form.save(commit=False) # poczekaj z zapisem
@@ -242,4 +243,34 @@ def ajax_calc(request):
         json['obxpp'] = obxpp
 
         return JsonResponse(json)
-        
+@csrf_exempt
+def ajax_ord2(request):
+
+    d = request.POST.get('depth', 'None')
+
+    payload = {}
+
+    if request.method == 'POST':
+        payload['if_post'] = "OK"
+        form = OrderForm(request.POST)
+        if form:
+            payload['if_form'] = "OK"
+        if form.is_valid():
+            payload['if_valid'] = "OK"
+            obj = form.save(commit=False) # poczekaj z zapisem
+            obj.user = request.user # wrzuć aktualnie zalogowanego usera do pola form.user
+            if d is None:
+                payload['error'] = 'd is None'
+            elif type(d) is str:
+                payload['error'] ='d is string!'
+                if d != "None":
+                    obj.d = int(d)
+            obj.save() # zapisz
+        else:
+            payload['if_valid'] = "NO"  
+    else:
+        form = OrderForm()
+        payload['saved'] = False
+        payload['if_post'] = False
+
+    return JsonResponse(payload) # wyślij payload
