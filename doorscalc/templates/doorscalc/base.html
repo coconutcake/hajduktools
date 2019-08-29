@@ -182,8 +182,8 @@ function clearobj(obj) {
 
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
-                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
-                toggleWindows();
+                $('#modal-body').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
+                
 
 
             } else {
@@ -230,11 +230,11 @@ function clearobj(obj) {
             console.log(formData);
             
             order();
-            
+            updateOrderDiv();
             clearme();
             clearobj(formData);
-            toggleWindows();
-            updateOrderDiv();
+            
+            
             
 
         } else {
@@ -258,13 +258,14 @@ function clearobj(obj) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
             success : function(payload) {
+                updateOrderDiv();
                 console.log('.............................')
                 console.log('Payload: Begin')
                 console.log('.............................')
                 console.log('is POST request?: '+payload.if_post);
                 console.log('is form object?: '+payload.if_form);
                 console.log('is form valid?: '+payload.if_valid);
-                updateOrderDiv();
+                
                     
 
                 
@@ -336,8 +337,8 @@ function send_form_data(form,view){
 
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
-                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
-                toggleWindows();
+                $('#modal-body').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"></div>')
+                
 
 
             } else {
@@ -351,8 +352,9 @@ function send_form_data(form,view){
 $('body').on('click', '#calc', function(){
     console.log('calc clicked')
     send_form_data('#d_form', '{% url "ajax_calc" %}')
-    scrollto('#foreg')
+    
 });
+
 
 $('.excluded').each(function(){
     var value = $(this).attr('value');
