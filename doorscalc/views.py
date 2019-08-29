@@ -228,7 +228,7 @@ def ajax_calc(request):
             calcall = netprice+obxpp
             json['final_price'] = round(calcall-(calcall*discount))
         else:
-            data['gasket'] = 'included'
+            json['gasket'] = 'included'
             json['final_price'] = discount_price
 
         json['formula'] = selected_doors.formula

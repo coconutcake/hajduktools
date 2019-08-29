@@ -61,13 +61,17 @@
               <form id="d_form" method="POST">
               {% csrf_token %}
               {{ ord_form.as_p }}
+              {% comment %} stany excluded {% endcomment %}
+              {% for door in doors_objects %}
+                <p class="excluded" id="{{ door.id }}" value="{{ door.excluded }}" style="display:none"></p>
+              {% endfor %}
               <input type="submit" value="Order" class="btn btn-danger">
               <a name="" id="calc" class="btn btn-success" role="button">Calculate</a>
               </form>
 
 
 
-                    <form method="POST" id="doors_form">
+                    {% comment %} <form method="POST" id="doors_form">
                     {% csrf_token %}
                     {% for door in doors_objects %}
                       <label data-tippy-content="{{ door.tooltip }}" ><img src="{{ door.cover.url}}" alt="{{ door.title }}"><input type="radio" name="code" value={{ door.id }} code={{ door.code }} excluded={{ door.excluded }} required><b> {{ door.code }}</b> - {{ door.title }}</input></label><br>
@@ -79,7 +83,7 @@
                     <button name='clear' class="shadow btn btn-secondary"><i class="fa fa-times" aria-hidden="true"></i>Clear</button>
                     <button name='begin' class="shadow btn btn-secondary"><i class="fa fa-file" aria-hidden="true"></i>New</button>
 
-                    </form>
+                    </form> {% endcomment %}
               </div>
             </div>
 

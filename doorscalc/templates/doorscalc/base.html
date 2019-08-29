@@ -86,7 +86,7 @@ $('input:radio[name="code"]').each( function(index) {
             $('input[name='+excluded+']').prop('disabled', true);
             console.log('changed')
         } else {
-            $('input[type="number"').prop('disabled', false);
+            $('input').prop('disabled', false);
             console.log('all unlocked')
             console.log(excluded)
         }
@@ -277,12 +277,20 @@ $('body').on("click", "#close_calc" ,function() {
 
 // function send calculation......................................
 //................................................................
-function send_data(form,view){
+function scrollto(target) {
+    $('html, body').animate({
+        scrollTop: $(target).offset().top
+    }, 500);
+}
+
+
+function send_form_data(form,view){
     console.log('[taking values..]')
     var arrayform = $(form).serializeArray();
         $(arrayform).each(function(index, obj){
             formData[obj.name] = obj.value;
         });
+    
     console.log('JSON payload -> Django:');
     console.log(formData);
     $.ajax({
@@ -314,12 +322,36 @@ function send_data(form,view){
 
 
 $('body').on('click', '#calc', function(){
-console.log('calc clicked')
-send_data('#d_form', '{% url "ajax_calc" %}')
+    console.log('calc clicked')
+    send_form_data('#d_form', '{% url "ajax_calc" %}')
+    scrollto('#foreg')
 });
 
+$('.excluded').each(function(){
+    var value = $(this).attr('value');
+    var ids = $(this).attr('id');
+    if (value != null || value != undefined) {
+        $(".radioselect[value="+ids+"]").attr('excluded', value);
+    }
 
-
+});
+$('input:radio[class="radioselect"]').each( function(index) {
+    $(this).click(function (e) {
+        var excluded = $(this).attr('excluded');
+        console.log(excluded);
+        scrollto('#calc')
+        $('input[type="text"]').prop('disabled', false);
+        if (excluded != undefined || excluded != null ) {
+            $('input[measure="'+excluded+'"]').prop('disabled', true);
+            console.log('changed')
+        } else {
+            $('input[type="text"]').prop('disabled', false);
+            console.log('all unlocked')
+            console.log(excluded)
+        }
+        excluded = null;
+    });
+});
 
 setInterval(function () {
    updateOrderDiv();

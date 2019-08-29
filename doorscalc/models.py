@@ -75,7 +75,7 @@ class Order(models.Model):
     
     handle_site = models.CharField(verbose_name=u"Handle", help_text="Which site takes handle?", choices=sides, max_length=50, default=1, blank=False, null=True)
     inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=sides, max_length=50, default=Top, blank=False, null=True)
-    
+   
 
     def publish(self):
         self.user = request.user
