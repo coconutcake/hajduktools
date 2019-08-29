@@ -105,6 +105,11 @@ function toggleWindows() {
 
     });
  }
+function toggleforeg() {
+    $('#foreg').fadeToggle('slow', function() {
+
+    });
+ }
 
 // Close button.................................................
 
@@ -201,9 +206,12 @@ function clearobj(obj) {
         
 
         order();
+        updateOrderDiv();
         clearme();
         clearobj(formData);
         updateOrderDiv();
+        scrollto('#foreg')
+        
         
     });
 
@@ -222,11 +230,12 @@ function clearobj(obj) {
             console.log(formData);
             
             order();
-
+            
             clearme();
             clearobj(formData);
             toggleWindows();
             updateOrderDiv();
+            
 
         } else {
             return false;
@@ -287,6 +296,7 @@ $('body').on("click", ".cancel_order" ,function() {
 $('body').on("click", "#close_calc" ,function() {
     console.log('clicked')
     toggleWindows();
+    scrollto("#calc")
 });
 // function: live refreshing order................................
 
