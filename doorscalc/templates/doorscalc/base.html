@@ -73,6 +73,7 @@ $( "button[name='begin']" ).click(function() {
             scrollTop: $("#formularz").offset().top
         }, 500);
     });
+    
 $('input:radio[name="code"]').each( function(index) {
     $(this).click(function (e) {
         $('html, body').animate({
@@ -292,14 +293,22 @@ function send_data(form,view){
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
-            success : function(payload) {
-                console.log('.............................')
-                console.log('Payload: Begin')
-                console.log('.............................')
-                console.log(payload.w)
-                console.log(payload.h)
-                console.log(payload.d)
+            success : function(json) {
+            console.log(json.isvalid);
+            console.log(json.nosna);
+            console.log(json.maxm2);
+            if (json.isvalid) {
+
+                console.log(json); // log the returned json to the console
+                console.log("success Django>Ajax" + json.m2); // another sanity check
+                $('#modal').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
+                toggleWindows();
+
+
+            } else {
+                alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
+        },
         });
 }
 

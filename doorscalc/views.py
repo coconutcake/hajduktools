@@ -186,10 +186,10 @@ def ajax_calc(request):
 
 
 
-        c = request.POST.get('code', 'None')
-        w = request.POST.get('width', 'None')
-        h = request.POST.get('height', 'None')
-        d = request.POST.get('depth', 'None')
+        c = request.POST.get('door', 'None')
+        w = request.POST.get('w', 'None')
+        h = request.POST.get('h', 'None')
+        d = request.POST.get('d', 'None')
 
         selected_doors = Door.objects.get(pk=c) 
 
@@ -209,10 +209,10 @@ def ajax_calc(request):
         obxpp = obxp*5
         checked = selected_doors.gasket
 
-        data = {}
+        json = {}
 
-        data['nosna'] = nosna
-        data['maxm2'] = selected_doors.nosna_max
+        json['nosna'] = nosna
+        json['maxm2'] = selected_doors.nosna_max
 
         def compare(n,m):
             if n <= m:
@@ -221,25 +221,25 @@ def ajax_calc(request):
                 return False
 
         isvalid = compare(nosna, selected_doors.nosna_max)
-        data['isvalid'] = isvalid
+        json['isvalid'] = isvalid
 
         if not checked:
-            data['gasket'] = 'not included'
+            json['gasket'] = 'not included'
             calcall = netprice+obxpp
-            data['final_price'] = round(calcall-(calcall*discount))
+            json['final_price'] = round(calcall-(calcall*discount))
         else:
             data['gasket'] = 'included'
-            data['final_price'] = discount_price
+            json['final_price'] = discount_price
 
-        data['formula'] = selected_doors.formula
-        data['m2'] = m2
-        data['netprice'] = netprice
-        data['discount'] = selected_doors.discount.discount
-        data['discount2'] = discount
-        data['discount_price'] = discount_price
-        data['obx'] = obx
-        data['obxp'] = obxp
-        data['obxpp'] = obxpp
+        json['formula'] = selected_doors.formula
+        json['m2'] = m2
+        json['netprice'] = netprice
+        json['discount'] = selected_doors.discount.discount
+        json['discount2'] = discount
+        json['discount_price'] = discount_price
+        json['obx'] = obx
+        json['obxp'] = obxp
+        json['obxpp'] = obxpp
 
-        return JsonResponse(data)
+        return JsonResponse(json)
         
