@@ -57,21 +57,21 @@
 
 
 
-            <h1><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
+            <h1 class="text-uppercase font-weight-bold"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
             <hr>
               <div class="row">
-                <div class="col-3">
+                <div class="col-4 col-sm-3">
                   <span>Customer:</span>
                 </div>
                 <div class="col-3 d-none d-sm-block">
                   <span>Measurement:</span>
                 </div>
-                <div class="col-4 col-sm-3">
+                <div class="col-2 col-sm-3">
                   <span>Status:</span>
                 </div>
-                <div class="col-5 col-sm-3">
-                  <span>Created:</span>
+                <div class="col-6 col-sm-3"><div class="d-flex justify-content-end"><span>Created:</span></div>
+                  
                 </div>
                 {% comment %} <div class="col-1">
                   <span></span>
@@ -82,17 +82,18 @@
               <hr>
                   {% for u in user_order %}
                 <div class="row">
-                    <div class="col-3"><p id="cust" class="{{ u.customer }}"><i class="fa fa-user" aria-hidden="true"></i> {{ u.customer }}</p></div>
-                    <div class="col-3 d-none d-sm-block"><p id="measure" class="">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
-                    <div class="col-4 col-sm-3"><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
-                    <div class="col-5 col-sm-3">{{ u.data }}</div>
-                    {% comment %} <div class="col-1 ">
+                    <div class="col-4 col-sm-3"><p id="cust" class="{{ u.customer }} "><i class="fa fa-user" aria-hidden="true"></i> {{ u.customer }}</p></div>
+                    <div class="col-3 d-none d-sm-block"><p id="measure" class=" ">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
+                    <div class="col-2 col-sm-3"><p id="stat" class="{{ u.status }} "></p></div>
+                    {% comment %} <div class="col-6 col-sm-3"><p class="">{{ u.data }}</p></div> {% endcomment %}
+                    <div class="col-6 col-sm-3">
                     <div class="d-flex justify-content-end">
-                      <button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button>
+                      <p class="">{{ u.data }}</p>
+                      {% comment %} <button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button> {% endcomment %}
                     </div>
                     
                     
-                    </div> {% endcomment %}
+                    </div> 
                 </div>
                   {% endfor %}
                   
@@ -104,7 +105,7 @@
             <div class="col-12 bg-light p-4 shadow">
             
               <div id='formularz' class='initiallyHidden'>
-                <h1><i class="fa fa-calculator" aria-hidden="true"></i>
+                <h1 class='text-uppercase font-weight-bold'><i class="fa fa-calculator" aria-hidden="true"></i>
  Doorscalc</h1><p>Pick appriopriate door type:</p>
                 <hr>
 
