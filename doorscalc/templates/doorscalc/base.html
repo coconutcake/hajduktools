@@ -233,7 +233,7 @@ function clearobj(obj) {
             updateOrderDiv();
             clearme();
             clearobj(formData);
-            
+            scrollto('#foreg');
             
             
 
@@ -297,7 +297,7 @@ $('body').on("click", ".cancel_order" ,function() {
 
 $('body').on("click", "#close_calc" ,function() {
     console.log('clicked')
-    toggleWindows();
+    
     scrollto("#calc")
 });
 // function: live refreshing order................................
@@ -310,6 +310,7 @@ function scrollto(target) {
         scrollTop: $(target).offset().top
     }, 500);
 }
+
 
 
 function send_form_data(form,view){
@@ -368,7 +369,7 @@ $('input:radio[class="radioselect"]').each( function(index) {
     $(this).click(function (e) {
         var excluded = $(this).attr('excluded');
         console.log(excluded);
-        scrollto('#calc')
+        scrollto('#w')
         $('input[type="text"]').prop('disabled', false);
         if (excluded != undefined || excluded != null ) {
             $('input[measure="'+excluded+'"]').prop('disabled', true);
