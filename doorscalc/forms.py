@@ -16,7 +16,7 @@ class OrderForm(forms.ModelForm):
         )
             
             fields = ['door', 'w', 'h', 'd', 'handle_site', 'inlet_site', 'customer',]
-            exclude = ('user',)
+            exclude = ('user','data','days',)
 
             widgets = {
                 'door': forms.RadioSelect(attrs={

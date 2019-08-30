@@ -36,7 +36,7 @@ def doors_list(request):
     calc_form = DoorForm()
     ord_form = OrderForm()
     doors_objects = Door.objects.order_by('code')
-    user_order = Order.objects.filter(user=request.user)
+    user_order = Order.objects.filter(user=request.user).order_by('-data')
     template = loader.get_template('doorscalc/index.html')
 
     handles = Order.objects.values_list('handle_site')
@@ -154,6 +154,8 @@ def ajax_ord(request):
             obj.user = request.user # wrzuć aktualnie zalogowanego usera do pola form.user
             obj.w = converted.get("width", "") # wrzuć reszte do pól
             obj.h = converted.get("height", "")
+            obj.data = datetime.date.today
+
             if d is None:
                 payload['error'] = 'd is None'
             elif type(d) is str:

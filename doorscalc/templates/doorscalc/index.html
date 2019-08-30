@@ -1,6 +1,28 @@
 {% extends 'doorscalc/base.html' %}
 {% block doorscalc_form %}
+<div class="container">
+  <div class="row initiallyHidden">
+    <div class="col m-3">
+{% if user.is_authenticated %}
+      <nav class="navbar fixed-top navbar-light bg-dark">
+      <a class="navbar-brand text-light" href="#"><i class="fa fa-file" aria-hidden="true"></i>Dcalc</a>
+      <a href="{% url 'logout' %}"><button type="submit" class="shadow btn btn-danger btn-md "><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</button></a>
+      </nav>
+      <div class="border border-success shadow-sm alert alert-success" role="alert">
+        <div class="d-flex bd-highlight">
+          <div class="p-2 w-100 bd-highlight">Hi {{ user.get_short_name }}! Your session started at {{ user.last_login }}.
 
+  </div>
+  <div class="p-2 flex-shrink-1 bd-highlight"><a href="{% url 'logout' %}"><button type="submit" class="shadow btn btn-secondary btn-md ">Logout</button></a></div>
+
+</div>
+
+
+</div>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+{% endif %}
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
@@ -28,7 +50,7 @@
 
         <div class="row initiallyHidden">
 
-          <div class="col-12 bg-light-2 p-4 rounded">
+          <div class="col-12 bg-light-2 p-4 rounded  border border-dark shadow-sm">
 
 
 
@@ -39,34 +61,38 @@
             <p>Here are Your orders:</p>
             <hr>
               <div class="row">
-                <div class="col-4 col-sm-3 col-lg-3">
+                <div class="col-3">
                   <span>Customer:</span>
                 </div>
-                <div class="col-4 col-sm-3 col-lg-4 d-none d-sm-block">
+                <div class="col-3 d-none d-sm-block">
                   <span>Measurement:</span>
                 </div>
-                <div class="col-4 col-lg-3">
+                <div class="col-4 col-sm-3">
                   <span>Status:</span>
                 </div>
-                <div class="col-4 col-lg-2">
-                  <span></span>
+                <div class="col-5 col-sm-3">
+                  <span>Created:</span>
                 </div>
+                {% comment %} <div class="col-1">
+                  <span></span>
+                </div> {% endcomment %}
               </div>
 
               <div id="orders">
               <hr>
                   {% for u in user_order %}
                 <div class="row">
-                    <div class="col-4 col-sm-3 col-lg-3"><p id="cust" class="{{ u.customer }}"> {{ u.customer }}</p></div>
-                    <div class="col-4 col-sm-3 col-lg-4 d-none d-sm-block"><p id="measure" class="">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
-                    <div class="col-4 col-sm-3 col-lg-3"><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
-                    <div class="col-4 col-sm-3 col-lg-2">
+                    <div class="col-3"><p id="cust" class="{{ u.customer }}"><i class="fa fa-user" aria-hidden="true"></i> {{ u.customer }}</p></div>
+                    <div class="col-3 d-none d-sm-block"><p id="measure" class="">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
+                    <div class="col-4 col-sm-3"><p id="stat" class="{{ u.status }}"> {{ u.status }}</p></div>
+                    <div class="col-5 col-sm-3">{{ u.data }}</div>
+                    {% comment %} <div class="col-1 ">
                     <div class="d-flex justify-content-end">
                       <button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </div>
                     
                     
-                    </div>
+                    </div> {% endcomment %}
                 </div>
                   {% endfor %}
                   

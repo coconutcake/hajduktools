@@ -1,7 +1,10 @@
+from django.utils.translation import gettext as _
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+import datetime
 # Create your models here.
+
 
 class Discount(models.Model):
     title = models.CharField(max_length=99, blank=False, null=False)
@@ -75,6 +78,8 @@ class Order(models.Model):
     handle_site = models.CharField(verbose_name=u"Handle", help_text="Which site takes handle?", choices=sides, max_length=50, default=1, blank=False, null=True)
     inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=sides, max_length=50, default=Top, blank=False, null=True)
     customer = models.CharField(verbose_name=u"Customer", help_text="Your customer name", default="", max_length=100, blank=False, null=True)
+    data = models.DateField(_("Data dodania"), auto_now=False, default=datetime.date.today, auto_now_add=False)
+    days = models.DecimalField(_("Dni"), max_digits=3, decimal_places=1, blank=True, null=True)
 
     def publish(self):
         self.user = request.user
