@@ -60,17 +60,20 @@
             <h1 class="text-uppercase font-weight-bold"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders</h1>
             <p>Here are Your orders:</p>
             <hr>
-              <div class="row">
-                <div class="col-4 col-sm-3">
-                  <span>Customer:</span>
+              <div class="row bg-danger p-2 rounded text-light">
+                <div class="col-2 col-md-2">
+                  <span><i class="fa fa-user" aria-hidden="true"></i></span>
                 </div>
-                <div class="col-3 d-none d-sm-block">
-                  <span>Measurement:</span>
+                <div class="col-3 d-none d-md-block text-center">
+                  <span><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
                 </div>
-                <div class="col-2 col-sm-3">
-                  <span>Status:</span>
+                <div class="col-2 col-md-2 text-center">
+                  <span><i class="fa fa-bolt" aria-hidden="true"></i></span>
                 </div>
-                <div class="col-6 col-sm-3"><div class="d-flex justify-content-end"><span>Created:</span></div>
+                <div class="col-2 col-md-2 text-center">
+                  <span><i class="fa fa-eur" aria-hidden="true"></i></span>
+                </div>
+                <div class="col-6 col-md-3"><div class="d-flex justify-content-end"><span><i class="fa fa-calendar" aria-hidden="true"></i></span></div>
                   
                 </div>
                 {% comment %} <div class="col-1">
@@ -82,11 +85,15 @@
               <hr>
                   {% for u in user_order %}
                 <div class="row">
-                    <div class="col-4 col-sm-3"><p id="cust" class="{{ u.customer }} "><i class="fa fa-user" aria-hidden="true"></i> {{ u.customer }}</p></div>
-                    <div class="col-3 d-none d-sm-block"><p id="measure" class=" ">{{ u.w }}x{{ u.h }}x{{ u.d }}</p></div>
-                    <div class="col-2 col-sm-3"><p id="stat" class="{{ u.status }} "></p></div>
+                    <div class="col-2 col-md-2"><p id="cust" class="{{ u.customer }} ">{{ u.customer }}</p></div>
+                    <div class="col-3 d-none d-md-block text-center"><p id="measure" class=" ">{{ u.w }}x{{ u.h }}{% if d %} x{{ u.d }} {% else %} &nbsp; {% endif %}</p></div>
+                    <div class="col-2 col-md-2 text-center"><p id="stat" class="{{ u.status }} "></p></div>
                     {% comment %} <div class="col-6 col-sm-3"><p class="">{{ u.data }}</p></div> {% endcomment %}
-                    <div class="col-6 col-sm-3">
+
+                    <div class="col-2 col-md-2 text-center">
+                    <p id="p_price">{{ u.price }}€</p>
+                    </div>
+                    <div class="col-6 col-md-3">
                     <div class="d-flex justify-content-end">
                       <p class="">{{ u.data }}</p>
                       {% comment %} <button type="button" class="m-0 btn btn-sm btn-dark cancel_order" id="{{ u.id }}"><i class="fa fa-times" aria-hidden="true"></i></button> {% endcomment %}

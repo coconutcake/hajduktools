@@ -81,6 +81,17 @@ class Order(models.Model):
     data = models.DateField(_("Data dodania"), auto_now=False, default=datetime.date.today, auto_now_add=False)
 
     price = models.DecimalField(_("Price [€]"), max_digits=5, decimal_places=0, default=0, blank=False, null=False)
+
+    def price_euro(self):
+        return f'{self.price} €'
+
+    def measures(self):
+        if self.d:
+            return f'{self.w}x{self.h}x{self.d}'
+        else: 
+            return f'{self.w}x{self.h}'
+
+
     def publish(self):
         self.user = request.user
         self.published_date = timezone.now()
