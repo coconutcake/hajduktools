@@ -215,33 +215,29 @@ function clearobj(obj) {
         
     });
 
-
-
+// ORDERING .................................................
+    var p;  //copy price and insert to input [pole_price]
     $('body').on("click", "#ord" ,function(event) {
-
     event.preventDefault();
+    console.log("this is price......");
+    console.log(p);
+    $('#pole_price').val(p)
         if(confirm("Are you sure you want to order it?"))   {
-
             var arrayform = $("#d_form").serializeArray();
             $(arrayform).each(function(index, obj){
             formData[obj.name] = obj.value;
             });
             console.log('SANITY CHECK: cash:');
-            console.log(formData);
-            
+            console.log(formData);         
             order();
             updateOrderDiv();
             clearme();
             clearobj(formData);
             scrollto('#foreg');
-            
-            
-
         } else {
             return false;
         }
     });
-
 
 // function: ORDER......................................
     function order() {
@@ -335,7 +331,7 @@ function send_form_data(form,view){
             console.log(json.nosna);
             console.log(json.maxm2);
             if (json.isvalid) {
-
+                p = json.final_price
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
                 $('#modal-body').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"></div>')

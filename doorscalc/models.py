@@ -79,8 +79,8 @@ class Order(models.Model):
     inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=sides, max_length=50, default=Top, blank=False, null=True)
     customer = models.CharField(verbose_name=u"Customer", help_text="Your customer name", default="", max_length=100, blank=False, null=True)
     data = models.DateField(_("Data dodania"), auto_now=False, default=datetime.date.today, auto_now_add=False)
-    days = models.DecimalField(_("Dni"), max_digits=3, decimal_places=1, blank=True, null=True)
 
+    price = models.DecimalField(_("Price [€]"), max_digits=5, decimal_places=0, default=0, blank=False, null=False)
     def publish(self):
         self.user = request.user
         self.published_date = timezone.now()

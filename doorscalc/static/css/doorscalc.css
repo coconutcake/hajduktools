@@ -139,3 +139,8 @@ ul {
     color: rgb(165, 165, 165);
     font-size: .8em;
 }
+
+label[for="pole_price"], input[id="pole_price"]
+{
+   display: none!important;
+}

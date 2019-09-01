@@ -15,8 +15,8 @@ class OrderForm(forms.ModelForm):
             (32, 'Restaurants'),
         )
             
-            fields = ['door', 'w', 'h', 'd', 'handle_site', 'inlet_site', 'customer',]
-            exclude = ('user','data','days',)
+            fields = ['door', 'w', 'h', 'd', 'handle_site', 'inlet_site', 'customer', 'price',]
+            exclude = ('user','data',)
 
             widgets = {
                 'door': forms.RadioSelect(attrs={
@@ -54,8 +54,17 @@ class OrderForm(forms.ModelForm):
                     'rows': 2, 
                     'cols':1
                 }),
+                'price': forms.NumberInput(attrs={
+                    'id' : 'pole_price',
+                    'style': 'display:none;'
+                }),
                 
             }
+
+        # def __init__(self, *args, **kwargs):
+        #     super().__init__(*args, **kwargs)
+        #     self.fields['price'].widget.attrs.update({'style': 'display:none;'})
+
 
             
 
