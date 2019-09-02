@@ -15,8 +15,9 @@ Admin will have access to price modifications and additional calculation formula
 - No page refreshings thanks to AJAX/JSON [**-DONE-**]
 
 ## Future project extensions:
-- Mailing generator for company employers
 - Checking platform [**-DONE-**]
 - Doors ordering platform [**-DONE-**]
 - Statuses [**-DONE-**]
+- Mail notifications using signals
+
 
