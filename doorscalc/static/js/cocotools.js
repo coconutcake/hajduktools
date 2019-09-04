@@ -37,4 +37,5 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
 function showup() {
     $("body").hide();
     $('div').removeClass('initiallyHidden');
+    console.log('initiallyHidden removed');
 }

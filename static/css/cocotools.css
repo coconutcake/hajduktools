@@ -52,7 +52,7 @@ img.logo {
     width: 40px!important;
     transition-duration: 0.5s!important;
     transition-timing-function: cubic-bezier(.91,.01,.1,1);
-    animation: zooming-2 0.6s cubic-bezier(.91,.01,.1,1);
+    animation: zooming-2 .5s cubic-bezier(.91,.01,.1,1);
 }
 
 /* Animations */
@@ -65,5 +65,35 @@ img.logo {
     100% {
         transform: scale(1.0,1.0);
     }
+}
+@keyframes zooming-2 {
+    0% {
+        transform: scale(1,0);
+    }
+    3% {
+        transform: scale(1.0,1.0);
+    }
+    15% {
+        transform: scale(1.0,0);
+    }
+    24% {
+        transform: scale(1.0,1.0);
+    }
+
+    32% {
+        transform: scale(1.0,0);
+    }
+
+    47% {
+        transform: scale(1.0,1.0);
+    }
+
+    73% {
+        transform: scale(1.0,0);
+    }
+    100% {
+        transform: scale(1.0,1.0);
+    }
+    
 }
 
