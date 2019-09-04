@@ -23,6 +23,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/tippy.js@4"></script>
+    <script src="{% static 'js/cocotools.js' %}"></script>
 
     <script>
 
@@ -38,13 +39,8 @@ $(document).ready(function(){
 });
 clearme();
 // Scroll fixed bar...................................
-$(window).bind('scroll', function () {
-    if ($(window).scrollTop() > 50) {
-        $('.navbar').slideDown( "fast" );
-    } else {
-        $('.navbar').slideUp('fast');
-    }
-});
+
+coconavi('.navbar', 50, 'navbar-scroll');
 
 // Tippy launcher.....................................
   tippy('label', {
@@ -141,11 +137,7 @@ function clearobj(obj) {
     console.log(obj);
 }
 // function: SHOWUP........................................
-    function showup() {
-        $("body").hide();
-        $('div').removeClass('initiallyHidden');
-        $('.navbar').hide();
-    }
+
 // function: CLEAR INPUTS..................................
     function clearme() {
         console.log('cleared')

@@ -144,3 +144,30 @@ label[for="pole_price"], input[id="pole_price"]
 {
    display: none!important;
 }
+
+/* // cocotools // */
+
+/* 1. //coconavi */
+.navbar {
+	background: #f5f5f5!important;
+	border-bottom: 3px solid rgb(28, 223, 109);
+	padding: 40px 0;
+	transition-duration: 0.6s;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav>li>a {
+	color: #183532;
+}
+
+.navbar-scroll {
+	background: #ffffff;
+	padding: 0;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.4);
+    border-bottom: 3px solid rgb(28, 223, 109);
+    transition-duration: 0.6s;
+    
+}
+.nav-dropdown-scroll {
+	background: #e7eaea;
+	box-shadow: 0px 10px 9px rgba(0, 0, 0, 0.4);
+}
