@@ -52,13 +52,12 @@ img.logo {
     width: 40px!important;
     transition-duration: 0.5s!important;
     transition-timing-function: cubic-bezier(.91,.01,.1,1);
-    animation: zooming-2 .5s cubic-bezier(.91,.01,.1,1);
+    animation: spinning .5s cubic-bezier(.91,.01,.1,1);
 }
 
 /* Animations */
 
-/* Zooming */
-@keyframes zooming-2 {
+@keyframes spinning-a {
     0% {
         transform: scale(1,0);
     }
@@ -66,7 +65,7 @@ img.logo {
         transform: scale(1.0,1.0);
     }
 }
-@keyframes zooming-2 {
+@keyframes spinning {
     0% {
         transform: scale(1,0);
     }
