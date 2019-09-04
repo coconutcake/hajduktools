@@ -1,0 +1,20 @@
+h1, a:link, a:visited
+{
+  color:rgb(31.6%, 31.6%, 31.6%)!important;
+  font-weight: bold;
+}
+#branding h1 {
+    color:rgb(245, 245, 245)!important;
+    
+}
+#header {
+    background: rgb(16, 179, 130);
+    
+}
+div.breadcrumbs {
+    background: rgb(14, 156, 114);
+}
+.module h2, .module caption, .inline-group h2 {
+    background: rgb(16, 179, 130);
+}
+
