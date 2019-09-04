@@ -5,8 +5,8 @@
 ////////////////////////////////////////////////////////
 //----------------------------------------------------//
 
-// Scrolled top bar [slide]
-function coconavi_down(target, topoffset, tempo) {  
+// Scrolled top bar [BASIC]
+function coconavi_b(target, topoffset, tempo) {  
     $(window).bind('scroll', function () {
         if ($(window).scrollTop() > topoffset) {
             $(target).slideDown(tempo);
@@ -16,6 +16,7 @@ function coconavi_down(target, topoffset, tempo) {
     });
 }
 
+// Scrolled top bar [advanced]
 function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
     var navbar = $(target);
 	$(window).scroll(function(){
@@ -32,6 +33,7 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
 
 };
 
+// All show up
 function showup() {
     $("body").hide();
     $('div').removeClass('initiallyHidden');
