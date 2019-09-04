@@ -16,15 +16,15 @@ function coconavi_down(target, topoffset, tempo) {
     });
 }
 
-function coconavi(target, topoffset, css_class) {
+function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
     var navbar = $(target);
 	$(window).scroll(function(){
 		if($(window).scrollTop() <= topoffset){
             navbar.removeClass(css_class);
-            $('#logo').removeClass('logo-sm')
+            $(logo_class).removeClass(trans_logo)
             console.log('class removed');
 		} else {
-            $('#logo').addClass('logo-sm')
+            $(logo_class).addClass(trans_logo)
 			navbar.addClass(css_class);
 			console.log('class added');
 		}

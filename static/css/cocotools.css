@@ -1,0 +1,39 @@
+
+/* 1. //Coconavi */
+.navbar {
+	border-bottom: 0;
+    padding: 40px 0;
+	transition-duration: 0.6s;
+}
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav>li>a {
+	color: #183532;
+}
+
+.navbar-scroll {
+    background: #ffffff;
+	padding: 15px 0;
+    box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.4);
+    border-bottom: 5px solid rgb(34, 202, 132);
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(.91,.01,.1,1);
+    
+}
+.nav-dropdown-scroll {
+	background: #e7eaea;
+	box-shadow: 0px 10px 9px rgba(0, 0, 0, 0.4);
+}
+
+/* Coconavi:logo */
+img.logo {
+    width: 60px;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(.91,.01,.1,1);
+}
+
+.logo-sm {
+    width: 40px!important;
+    transition-duration: 0.5s!important;
+    transition-timing-function: cubic-bezier(.91,.01,.1,1);
+}
+
