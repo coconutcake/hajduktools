@@ -121,7 +121,7 @@
                   {% for u in user_order %}
                 <div class="row">
                     <div class="col-2 col-md-2"><p id="cust" class="{{ u.customer }} ">{{ u.customer }}</p></div>
-                    <div class="col-3 d-none d-md-block text-center"><p id="measure" class=" ">{{ u.w }}x{{ u.h }}{% if u.d %}x{{ u.d }} {% else %} &nbsp; {% endif %}</p></div>
+                    <div class="col-3 d-none d-md-block text-center"><p id="measure" class=" ">{{ u.door.code }} - {{ u.w }}x{{ u.h }}{% if u.d %}x{{ u.d }} {% else %} &nbsp; {% endif %}</p></div>
                     <div class="col-2 col-md-2 text-center"><p id="stat" class="{{ u.status }} "></p></div>
                     {% comment %} <div class="col-6 col-sm-3"><p class="">{{ u.data }}</p></div> {% endcomment %}
 
