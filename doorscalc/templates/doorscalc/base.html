@@ -43,6 +43,7 @@ clearme();
 
 coconavi('.navbar', 50, 'navbar-scroll', '#logo', 'logo-sm');
 
+
 // Tippy launcher.....................................
   tippy('label', {
   followCursor: "horizontal",
@@ -147,10 +148,10 @@ function clearobj(obj) {
     }
 // function: REVEAL PAGE....................................
     function reveal_board() {
-        $('h1,img,input,button').each(function (index) {
+        $('h1,img,input').each(function (index) {
             $(this).hide();
         });
-        $("h1,img,input,button").each(function(index) {
+        $("h1,img,input").each(function(index) {
             var that = this;
             var t = setTimeout(function() {
                 $(that).hide().show(500);
@@ -371,6 +372,8 @@ $('input:radio[class="radioselect"]').each( function(index) {
         excluded = null;
     });
 });
+
+
 
 setInterval(function () {
    updateOrderDiv();
