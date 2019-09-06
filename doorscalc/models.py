@@ -55,7 +55,7 @@ class Order(models.Model):
         (A, 'Accepted'),
         (O, 'Producing'),
     ]
-
+    
     Right = 'Right'
     Left = 'Left'
     Top = 'Top'
@@ -63,6 +63,10 @@ class Order(models.Model):
     sides = [
         (Right, 'Right'),
         (Left, 'Left'),
+        (Top, 'Top'),
+        (Bottom, 'Bottom'),
+    ]
+    i_sides = [
         (Top, 'Top'),
         (Bottom, 'Bottom'),
     ]
@@ -76,7 +80,7 @@ class Order(models.Model):
     status = models.CharField(verbose_name=u"Status", help_text="Status zamówienia", choices=stats, default=P, max_length=50, blank=True, null=True)
     
     handle_site = models.CharField(verbose_name=u"Handle", help_text="Which site takes handle?", choices=sides, max_length=50, default=1, blank=False, null=True)
-    inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=sides, max_length=50, default=Top, blank=False, null=True)
+    inlet_site = models.CharField(verbose_name=u"Inlet", help_text="Which site takes air-inlet?", choices=i_sides, max_length=50, default=Top, blank=True, null=True)
     customer = models.CharField(verbose_name=u"Customer", help_text="Your customer name", default="", max_length=100, blank=False, null=True)
     data = models.DateField(_("Data dodania"), auto_now=False, default=datetime.date.today, auto_now_add=False)
 
