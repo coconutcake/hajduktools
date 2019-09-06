@@ -30,6 +30,7 @@
 }
 
 .navbar-default .navbar-brand,
+.navbar-brand>span,
 .navbar-default .navbar-nav>li>a,
 a:visited {
     color: rgb(88, 88, 88);
@@ -37,14 +38,13 @@ a:visited {
 }
 
 a:hover {
-    color: rgb(34, 202, 132);
+    color: rgb(34, 202, 132)!important;
     transition-duration: 0.2s;
     transition-timing-function: linear;
 }
 
 a {
     color: rgb(88, 88, 88);
-    font-weight: bold;
 }
 
 .navbar-scroll {
