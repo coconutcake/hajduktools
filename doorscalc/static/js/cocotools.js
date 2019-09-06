@@ -70,7 +70,6 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
         nav = $('.navbar');
         var element = document.getElementsByClassName('navbar-scroll');
 
-
         return [
             // Html:
             th.html('<nav class="navbar fixed-top rounded"><div class="container"><div class="navbar-header p-1"><img id="logo" class="logo" src=""><a class="navbar-brand text-uppercase font-weight-bold p-1" href="#"><span class="align-middle">' + settings.title + '</span></a></div><div class="d-flex bd-highlight"><div class="p-2 w-100 bd-highlight"></div><div class="p-2 flex-shrink-1 bd-highlight"><a id="logout" href=""><span class="align-middle"><button type="submit" class="shadow btn btn-secondary btn-md ">Logout</button></span></a></div></div></nav>'),
@@ -149,8 +148,14 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
             ),
             // Load function
             _init()
-
         ]
     };
 }(jQuery));
-// $('#coconavi').coconavi2();
+$('#coconavi').coconavi2();
+
+// function: CLEAR INPUTS..................................
+function clear_target(target, result) {
+    $(target).val('')
+    $(result).empty();
+    console.log('cleared')
+}

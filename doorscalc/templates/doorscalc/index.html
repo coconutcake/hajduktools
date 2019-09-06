@@ -1,24 +1,21 @@
 {% extends 'doorscalc/base.html' %}
-{% block doorscalc_form %}
 {% load static %}
-<div class="container">
+
+{% block navigation %}
+  <!-- NAVIGATION: BEGIN --> 
   <div class="row initiallyHidden">
     <div class="col m-1">
       {% if user.is_authenticated %}
-
-      <div id="upper_divi"></div>
-      {% comment %} <div id="coconavi"></div> {% endcomment %}
-
+      <div id="upper_divi"></div> <!-- space -->
       <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light2">
-        <div class="container pl-4 pr-4">
-          <a class="navbar-brand p-2" href="#"><img id="logo" class="logo" src="{% static 'calc.png' %}"><span
-              class="align-middle ml-2 mr-2">DCALC</span></a>
+        <div class="container pl-1 pr-1">
+          <a class="navbar-brand p-2" href="#"><img id="logo" class="logo" width="60px" src="{% static 'calc.png' %}"><span
+              class="align-middle ml-2 mr-2 font-weight-bold">DCALC</span></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <div class="collapse navbar-collapse p-4" id="navbarTogglerDemo02">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
               <li class="nav-item active">
                 <a class="nav-link" href="#orders">My orders</a>
@@ -33,191 +30,139 @@
             </div>
           </div>
       </nav>
+    </div>
+  </div>
+<!-- NAVIGATION: END --> 
 
-
-
-
-
-
-      {% comment %} <nav class="navbar navbar-expand-sm fixed-top rounded">
-        <div class="container">
-
-          <div class="navbar-header p-1"><img id="logo" class="logo" src="{% static 'calc.png' %}">
-
-
-            <a class="navbar-brand text-uppercase font-weight-bold p-1" href="#"><span
-                class="align-middle">Dcalc</span></a>
-          </div>
-          <div class="d-flex bd-highlight">
-            <div class="d-inline p-2 w-100 bd-highlight">
-              <!-- Links -->
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link 1</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link 2</a>
-                </li>
-
-                <!-- Dropdown -->
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Dropdown link
-                  </a>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Link 1</a>
-                    <a class="dropdown-item" href="#">Link 2</a>
-                    <a class="dropdown-item" href="#">Link 3</a>
-                  </div>
-                </li>
-              </ul>
-
-
-            </div>
-            <div class="p-2 flex-shrink-1 bd-highlight">
-              </button><a href="{% url 'logout' %}"><span class="align-middle"><button type="submit"
-                    class="shadow btn btn-secondary btn-md ">Logout</button></span></a></div>
-
-          </div>
-      </nav> {% endcomment %}
-      <!-- //Close Fixed Nav -->
-
-
-
-      {% comment %} <nav class="navbar fixed-top navbar-light bg-dark">
-        <a class="navbar-brand text-light" href="#"><i class="fa fa-file" aria-hidden="true"></i>Dcalc</a>
-        <a href="{% url 'logout' %}"><button type="submit" class="shadow btn btn-danger btn-md "><i
-              class="fa fa-sign-out" aria-hidden="true"></i>Logout</button></a>
-      </nav> {% endcomment %}
-
-      {% comment %} <div class="border border-success shadow-sm alert alert-success" role="alert">
-        <div class="d-flex bd-highlight">
-          <div class="p-2 w-100 bd-highlight">Hi {{ user.get_short_name }}! Your session started at
-            {{ user.last_login }}.
-
-          </div>
-          <div class="p-2 flex-shrink-1 bd-highlight"><a href="{% url 'logout' %}"><button type="submit"
-                class="shadow btn btn-secondary btn-md ">Logout</button></a></div> {% endcomment %}
-
+  {% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  {% endif %}
+{% endblock navigation %}
+  
+{% block modal %}
+<!-- MODAL: BEGIN -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Calculation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-
-
+        <div class="modal-body" id="modal-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" id="ord" type="submit" data-dismiss="modal">Order and
+            close</button>
+        </div>
       </div>
-      {% else %}
-      <p>You are not logged in</p>
-      <a href="{% url 'login' %}">login</a>
-      {% endif %}
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Calculation</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body" id="modal-body">
+    </div>
+  </div>
+<!-- MODAL: END -->
+{% endblock modal %}
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-danger" id="ord" type="submit" data-dismiss="modal">Order and
-                close</button>
-            </div>
+
+{% block orders %}
+  <!-- ORDERS: BEGIN -->
+  <div class="row initiallyHidden">
+    <div class="col-12 bg-light-2 p-4 rounded shadow">
+      <h1 class="text-uppercase font-weight-bold"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders
+      </h1>
+      <p>Here are Your orders:</p>
+      <hr>
+      <div class="row p-2 rounded text-light">
+        <div class="col-2 col-md-2">
+          <span><i class="fa fa-user" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-3 d-none d-md-block text-center">
+          <span><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-2 col-md-2 text-center">
+          <span><i class="fa fa-bolt" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-2 col-md-2 text-center">
+          <span><i class="fa fa-eur" aria-hidden="true"></i></span>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="d-flex justify-content-end"><span><i class="fa fa-calendar" aria-hidden="true"></i></span>
           </div>
         </div>
       </div>
-
-      <div id="foreg" class="foreground" style="display:none"></div>
-      <div class="container">
-        <div class="row initiallyHidden">
-          <div class="col-12 bg-light-2 p-4 rounded shadow">
-            <h1 class="text-uppercase font-weight-bold"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders
-            </h1>
-            <p>Here are Your orders:</p>
-            <hr>
-            <div class="row p-2 rounded text-light">
-              <div class="col-2 col-md-2">
-                <span><i class="fa fa-user" aria-hidden="true"></i></span>
-              </div>
-              <div class="col-3 d-none d-md-block text-center">
-                <span><i class="fa fa-arrows-alt" aria-hidden="true"></i></span>
-              </div>
-              <div class="col-2 col-md-2 text-center">
-                <span><i class="fa fa-bolt" aria-hidden="true"></i></span>
-              </div>
-              <div class="col-2 col-md-2 text-center">
-                <span><i class="fa fa-eur" aria-hidden="true"></i></span>
-              </div>
-              <div class="col-6 col-md-3">
-                <div class="d-flex justify-content-end"><span><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                </div>
-              </div>
-            </div>
-
-            <div id="orders">
-              <hr>
-              {% for u in user_order %}
-              <div class="row">
-                <div class="col-2 col-md-2">
-                  <p id="cust" class="{{ u.customer }} ">{{ u.customer }}</p>
-                </div>
-                <div class="col-3 d-none d-md-block text-center">
-                  <p id="measure" class=" ">{{ u.door.code }} - {{ u.w }}x{{ u.h }}{% if u.d %}x{{ u.d }} {% else %}
-                    &nbsp; {% endif %}</p>
-                </div>
-                <div class="col-2 col-md-2 text-center">
-                  <p id="stat" class="{{ u.status }} "></p>
-                </div>
-                <div class="col-2 col-md-2 text-center">
-                  <p id="p_price">{{ u.price }}€</p>
-                </div>
-                <div class="col-6 col-md-3">
-                  <div class="d-flex justify-content-end">
-                    <p class="">{{ u.data }}</p>
-                  </div>
-                </div>
-              </div>
-              {% endfor %}
-
-            </div>
-            <hr>
+      <div id="orders">
+        <hr>
+        {% for u in user_order %}
+        <div class="row">
+          <div class="col-2 col-md-2">
+            <p id="cust" class="{{ u.customer }} ">{{ u.customer }}</p>
           </div>
-
-
-          <div class="col-12 bg-light p-4 shadow border border-success rounded">
-
-            <div id='formularz' class='initiallyHidden'>
-              <h1 class='text-uppercase font-weight-bold'><i class="fa fa-calculator" aria-hidden="true"></i>
-                Doorscalc</h1>
-              <p>Pick appriopriate door type:</p>
-              <hr>
-
-
-              <form id="d_form" method="POST">
-                {% csrf_token %}
-                {{ ord_form.as_p }}
-                {% comment %} stany excluded {% endcomment %}
-                {% for door in doors_objects %}
-                <p class="excluded" id="{{ door.id }}" value="{{ door.excluded }}" style="display:none"></p>
-                {% endfor %}
-                <input type="submit" id='sub' value="Order" class="btn btn-danger">
-                <a name="" id="calc" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter"
-                  role="button">Calculate</a>
-              </form>
+          <div class="col-3 d-none d-md-block text-center">
+            <p id="measure" class=" ">{{ u.door.code }} - {{ u.w }}x{{ u.h }}{% if u.d %}x{{ u.d }} {% else %}
+              &nbsp; {% endif %}</p>
+          </div>
+          <div class="col-2 col-md-2 text-center">
+            <p id="stat" class="{{ u.status }} "></p>
+          </div>
+          <div class="col-2 col-md-2 text-center">
+            <p id="p_price">{{ u.price }}€</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="d-flex justify-content-end">
+              <p class="">{{ u.data }}</p>
             </div>
           </div>
         </div>
+        {% endfor %}
+      </div>
+      <hr>
+    </div>
+  </div>
+<!-- ORDERS: END -->
+{% endblock orders %}
+  
 
-        <div id="modal" class="jumbotron" style="display:none;"></div>
+{% block calculator %}
+  <!-- CALCULATOR: BEGIN -->
+  <div class="row initiallyHidden">
+    <div class="col-12 bg-light p-4 shadow border border-success rounded">
+      <div id='formularz' class='initiallyHidden'>
+        <h1 class='text-uppercase font-weight-bold'><i class="fa fa-calculator" aria-hidden="true"></i>
+          Doorscalc</h1>
+        <p>Pick appriopriate door type:</p>
+        <hr>
 
-        <div class="row initiallyHidden">
-          <div calss="col-12">
-            <div id='result' class='shadow rounded'></div>
-          </div>
-        </div>
+        <form id="d_form" method="POST">
+          {% csrf_token %}
+          {{ ord_form.as_p }}
+          {% comment %} stany excluded {% endcomment %}
+          {% for door in doors_objects %}
+          <p class="excluded" id="{{ door.id }}" value="{{ door.excluded }}" style="display:none"></p>
+          {% endfor %}
+          <input type="submit" id='sub' value="Order" class="btn btn-danger">
+          <a name="" id="calc" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter"
+            role="button">Calculate</a>
+        </form>
+      </div>
+    </div>
+  </div>
+<!-- CALCULATOR: END -->
+{% endblock calculator %}
+  
+{% block modal_jumbo %}
+  <div id="modal" class="jumbotron" style="display:none;"></div>
+{% endblock modal_jumbo %}
+  
+{% block result %}
+  <!-- RESULT: BEGIN -->
+  <div class="row initiallyHidden">
+    <div calss="col-12">
+      <div id='result' class='shadow rounded'></div>
+    </div>
+  </div>
+<!-- RESULT: END -->
+{% endblock result %}
 
 
-        {% endblock doorscalc_form%}

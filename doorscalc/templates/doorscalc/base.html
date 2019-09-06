@@ -8,15 +8,31 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/doorscalc.css' %}">
-    <link rel="stylesheet" href="{% static 'css/cocotools.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Doorscalc</title>
   </head>
   <body class="bg-light2">
+    <div class="container">
+        {% block navigation %}
+        {% endblock %}
 
-    {% block doorscalc_form %}
-    {% endblock %}
+        {% block modal %}
+        {% endblock %}
+
+        {% block orders %}
+        {% endblock %}
+
+        {% block calculator %}
+        {% endblock %}
+
+        {% block modal_jumbo %}
+        {% endblock %}
+
+        {% block result %}
+        {% endblock %}
+    </div>
+
     <!-- Optional JavaScript -->
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -204,7 +220,7 @@ function clearobj(obj) {
         clearme();
         clearobj(formData);
         updateOrderDiv();
-        scrollto('#foreg')
+        scrollto('#upper_divi')
         
         
     });
@@ -227,7 +243,7 @@ function clearobj(obj) {
             updateOrderDiv();
             clearme();
             clearobj(formData);
-            scrollto('#foreg');
+            scrollto('#upper_divi');
         } else {
             return false;
         }
