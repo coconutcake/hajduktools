@@ -94,6 +94,7 @@ $( "button[name='begin']" ).click(function() {
     
 $('input:radio[name="code"]').each( function(index) {
     $(this).click(function (e) {
+        
         $('html, body').animate({
             scrollTop: $("#result").offset().top
         }, 500);
@@ -116,7 +117,7 @@ $('.nav-link').each( function(index) {
     $(this).click(function (e) {
         var target = $(this).attr('href');
         $('html, body').animate({
-            scrollTop: $(target).offset().top
+            scrollTop: $(target).offset().top-1210
         }, 200);
 }); 
 });   
@@ -325,7 +326,7 @@ $('body').on("click", "#close_calc" ,function() {
 //................................................................
 function scrollto(target) {
     $('html, body').animate({
-        scrollTop: $(target).offset().top
+        scrollTop: $(target).offset().top-150
     }, 500);
 }
 
