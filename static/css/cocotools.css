@@ -65,6 +65,16 @@ a {
     color: rgb(48, 48, 48);
 }
 
+.navbar-brand>span {
+    font-size: 2rem;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(.91, .01, .1, 1);
+}
+
+.navbar-brand-scroll>span {
+    font-size: 1rem;
+}
+
 
 /* Coconavi:logo */
 
