@@ -153,7 +153,7 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
 }(jQuery));
 $('#coconavi').coconavi2();
 
-// function: CLEAR INPUTS..................................
+// Clear inputs and div.................................
 function clear_target(target, result) {
     $(target).val('')
     $(result).empty();
