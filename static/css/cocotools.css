@@ -68,7 +68,7 @@ a {
 
 /* Coconavi:logo */
 
-img.logo {
+.logo {
     width: 60px;
     transition-duration: 0.5s;
     transition-timing-function: cubic-bezier(.91, .01, .1, 1);
