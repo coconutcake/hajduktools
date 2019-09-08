@@ -6,11 +6,87 @@
 //----------------------------------------------------//
 
 // All show up
-function showup() {
-    $("body").hide();
-    $('div').removeClass('initiallyHidden');
+function displayhidden(target, time, interval) {
+    $(target).each(function(index) {
+        var that = this;
+        var t = setTimeout(function() {
+            $(that).fadeIn(time);
+            }, interval * index);
+    });
+    $(this).removeClass('initiallyHidden')
     console.log('initiallyHidden removed');
 }
+
+function showme(target, time, interval) {
+    $(target).each(function (index) {
+        $(this).hide();
+    });
+    $(target).each(function(index) {
+        var that = this;
+        var t = setTimeout(function() {
+            $(that).hide().slideDown(time);
+            }, interval * index);
+    });
+}
+
+// Clearing
+function clearmy(target) {
+    var t = target
+    console.log('cleared');
+    t.val('');
+}
+function clearcontent(target) {
+    var t = target
+    console.log('content cleared');
+    t.empty();
+}
+
+//Clearing plugin
+(function($) {
+$.fn.clearmeplease = function(options) {
+    var th = $(this);
+    function check() {
+        if(th.tagName == 'DIV'){
+            console.log("It's a div! Trying to empty...");
+            th.empty();
+        } else {
+            console.log("It's not a div! Trying to set empty val");
+            th.val('');
+        }
+    }
+    return check()
+};
+}(jQuery));
+
+//Div refresh
+function updateDiv(target)   {
+    $(target).load(window.location.href + " " + target );
+};
+
+// Navigate by attr plugin
+(function($) {
+    $.fn.navigatebyattr = function(options) {
+        var settings = $.extend({
+            offset: 1,
+            time: 200,
+            attr: 'href',
+    }, options);
+    th = $(this);
+    return th.each( function(index) {
+        $(this).click(function (e) {
+            console.log('jq navigatebyattr:')
+            var target = $(this).attr(settings.attr);
+            console.log('navigating to -> ' + target);
+            $('html, body').animate({
+                scrollTop: $(target).offset().top + settings.offset
+            }, settings.time );
+        });
+    });
+    };
+}(jQuery));
+
+
+
 
 // Scrolled top bar [BASIC]
 function coconavi_b(target, topoffset, tempo) {

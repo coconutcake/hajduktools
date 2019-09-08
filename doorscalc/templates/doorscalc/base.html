@@ -48,56 +48,75 @@
 
     <script>
 
+////////////////////////////////////////////////////////
+//-----------------INITIAL SETTINGS------------------//
+////////////////////////////////////////////////////////
+
+//Inputs
+var inputs = $('input[type="text"], textarea');
+//DIV: Result
+var result = $('#result');
 
 
-reveal_board()
+////////////////////////////////////////////////////////
+//-----------------------CALLS------------------------//
+////////////////////////////////////////////////////////
 
+//Show all up
 $(document).ready(function(){
-    showup()
-    setTimeout(() => {
-        $("body").hide().fadeIn(1000);
-    }, 100);
+    displayhidden('div.ih', 1200, 50);
+    showme('p', 200, 10);
 });
-clearme();
-// Scroll fixed bar...................................
 
+//Clear inputs upon page load
+clearmy(inputs);
+clearcontent(result);
+
+// Scrolling configration by attr
+$('.nav-link').navigatebyattr({
+    offset: -1210,
+    attr: 'href',
+});
+$('input[type="radio"]').navigatebyattr({
+    offset: 0,
+    attr: 'href',
+});
+
+//Fixed Navbar
 coconavi('.navbar', 50, 'navbar-scroll', '#logo', 'logo-sm');
 
-
-// Tippy launcher.....................................
+{% comment %} // Tippy launcher
   tippy('label', {
   followCursor: "horizontal",
   animateFill: false,
   animation: 'shift-away',
   duration: 200,
   arrow: true,
-})
+}) {% endcomment %}
 
 
-// function: update order div................................................
+{% comment %} // function: update order div.............................
 function updateOrderDiv()   {
     $("#orders").load(window.location.href + " #orders" );
-};
+}; {% endcomment %}
 
 
+{% comment %} $( "button[name='clear']" ).click(function() {
+    clearmy(inputs);
+    clearcontent(result);
+}); {% endcomment %}
 
+{% comment %} $( "button[name='begin']" ).click(function() {
+    clearmy(inputs);
+    clearcontent(result);
+    $('html, body').animate({
+        scrollTop: $("#formularz").offset().top
+    }, 500);
+}); {% endcomment %}
 
-    $( "button[name='clear']" ).click(function() {
-        clearme();
-    });
-$( "button[name='begin']" ).click(function() {
-        clearme();
-        $('html, body').animate({
-            scrollTop: $("#formularz").offset().top
-        }, 500);
-    });
-    
 $('input:radio[name="code"]').each( function(index) {
     $(this).click(function (e) {
-        
-        $('html, body').animate({
-            scrollTop: $("#result").offset().top
-        }, 500);
+
         var excluded = $(this).attr('excluded');
         console.log(excluded);
         $('input[type="number"').prop('disabled', false);
@@ -113,18 +132,17 @@ $('input:radio[name="code"]').each( function(index) {
     });
 });
 
-$('.nav-link').each( function(index) {
+
+{% comment %} $('.nav-link').each( function(index) {
     $(this).click(function (e) {
         var target = $(this).attr('href');
         $('html, body').animate({
             scrollTop: $(target).offset().top-1210
         }, 200);
-}); 
-});   
+});
+}); {% endcomment %}
 
-// window toggling function..............................
-
-
+{% comment %} // window toggling function..............................
 function toggleWindows() {
     $('#foreg').fadeToggle('slow', function() {
 
@@ -137,10 +155,7 @@ function toggleforeg() {
     $('#foreg').fadeToggle('slow', function() {
 
     });
- }
-
-// Close button.................................................
-
+ } {% endcomment %}
 
 // Form: Submit calculation & slide............................
     $('#doors_form').on('submit', function(event){
@@ -168,26 +183,9 @@ function clearobj(obj) {
     console.log('SANITY CHECK: data cleaned?');
     console.log(obj);
 }
-// function: SHOWUP........................................
 
-// function: CLEAR INPUTS..................................
-    function clearme() {
-        console.log('cleared')
-        $('input[type="number"]').val('')
-        $( "#result" ).empty();
-    }
-// function: REVEAL PAGE....................................
-    function reveal_board() {
-        $('h1,img,input').each(function (index) {
-            $(this).hide();
-        });
-        $("h1,img,input").each(function(index) {
-            var that = this;
-            var t = setTimeout(function() {
-                $(that).hide().show(500);
-                }, 70 * index);
-        });
-    }
+
+
 // function: CALCULATE.....................................
     function calculate_form() {
     console.log("calculation begins...") // sanity check
@@ -214,6 +212,7 @@ function clearobj(obj) {
             }
         },
     });
+    
     };
 
 // Form: Submit order JSON.....................................
@@ -229,10 +228,11 @@ function clearobj(obj) {
         
 
         order();
-        updateOrderDiv();
-        clearme();
+        updateDiv('#orders')
+        clearmy(inputs);
+        clearcontent(result);
         clearobj(formData);
-        updateOrderDiv();
+        updateDiv('#orders')
         scrollto('#upper_divi')
         
         
@@ -253,8 +253,9 @@ function clearobj(obj) {
             console.log('SANITY CHECK: cash:');
             console.log(formData);         
             order();
-            updateOrderDiv();
-            clearme();
+            updateDiv('#orders')
+            clearmy(inputs);
+            clearcontent(result);
             clearobj(formData);
             scrollto('#upper_divi');
         } else {
@@ -277,7 +278,7 @@ function clearobj(obj) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
             success : function(payload) {
-                updateOrderDiv();
+                updateDiv('#orders')
                 console.log('.............................')
                 console.log('Payload: Begin')
                 console.log('.............................')
@@ -308,7 +309,7 @@ $('body').on("click", ".cancel_order" ,function() {
             },
             success: function(response){
                 alert(response.status)
-                updateOrderDiv();
+                updateDiv('#orders')
 
             }
         });
@@ -333,6 +334,7 @@ function scrollto(target) {
 
 
 function send_form_data(form,view){
+    $('#result').empty();
     console.log('[taking values..]')
     var arrayform = $(form).serializeArray();
         $(arrayform).each(function(index, obj){
@@ -364,8 +366,10 @@ function send_form_data(form,view){
             } else {
                 alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
+            
         },
         });
+        arrayform = [];
 }
 
 
@@ -388,7 +392,7 @@ $('input:radio[class="radioselect"]').each( function(index) {
     $(this).click(function (e) {
         var excluded = $(this).attr('excluded');
         console.log(excluded);
-        scrollto('#w')
+
         $('input[type="text"]').prop('disabled', false);
         if (excluded != undefined || excluded != null ) {
             $('input[measure="'+excluded+'"]').prop('disabled', true);
@@ -402,12 +406,20 @@ $('input:radio[class="radioselect"]').each( function(index) {
     });
 });
 
+//Clearing modal upon dismis
+$('.modal-footer>button').each(function(){
+    $(this).on('click', function(){
+        console.log('clearing modal');
+        $('#modal-body').empty();
+    });
+});
+//Collapsing bootstrap navbar upon click
 $('.navbar-nav>li>a').on('click', function(){
     $('.navbar-collapse').collapse('hide');
 });
 
 setInterval(function () {
-   updateOrderDiv();
+   updateDiv('#orders')
 }, 10000);
 
 

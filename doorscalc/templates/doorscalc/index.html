@@ -3,7 +3,7 @@
 
 {% block navigation %}
   <!-- NAVIGATION: BEGIN --> 
-  <div class="row initiallyHidden">
+  <div class="row ih initiallyHidden">
     <div class="col m-1">
       {% if user.is_authenticated %}
       <div id="upper_divi"></div> <!-- space -->
@@ -70,7 +70,7 @@
 
 {% block orders %}
   <!-- ORDERS: BEGIN -->
-  <div class="row initiallyHidden">
+  <div class="row ih initiallyHidden">
     <div class="col-12 bg-light-2 p-4 rounded shadow">
       <h1 class="text-uppercase font-weight-bold"><i class="fa fa-shopping-cart" aria-hidden="true"></i> My orders
       </h1>
@@ -128,9 +128,9 @@
 
 {% block calculator %}
   <!-- CALCULATOR: BEGIN -->
-  <div class="row initiallyHidden">
+  <div class="row ih initiallyHidden">
     <div class="col-12 bg-light p-4 shadow border border-success rounded">
-      <div id='formularz' class='initiallyHidden'>
+      <div id='formularz' class=''>
         <h1 class='text-uppercase font-weight-bold'><i class="fa fa-calculator" aria-hidden="true"></i>
           Doorscalc</h1>
         <p>Pick appriopriate door type:</p>
@@ -159,7 +159,7 @@
   
 {% block result %}
   <!-- RESULT: BEGIN -->
-  <div class="row initiallyHidden">
+  <div class="row ih initiallyHidden">
     <div calss="col-12">
       <div id='result' class='shadow rounded'></div>
     </div>
@@ -169,7 +169,7 @@
 
 
 {% block footer %}
-<div class="row justify-content-md-center m-3">
+<div class="row ih initiallyHidden justify-content-md-center m-3">
     <div class="col-md-auto text-center">
       <hr>
       <span style="font-size: .8rem;">Author: Mateusz Ignatowicz</span><br>

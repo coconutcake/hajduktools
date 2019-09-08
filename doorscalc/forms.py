@@ -21,26 +21,24 @@ class OrderForm(forms.ModelForm):
             widgets = {
                 'door': forms.RadioSelect(attrs={
                     'class': 'radioselect',
+                    'href': '#result'
                 }),
                 'w': forms.TextInput(attrs={
                     'measure': 'width',
                     'class': 'shadow-sm form-control',
                     'id': 'w', 
-                    'required': True, 
                     'placeholder': 'Type width here...'
                 }),
                 'h': forms.TextInput(attrs={
                     'measure': 'height',
                     'class': 'shadow-sm form-control',
                     'id': 'h', 
-                    'required': True, 
                     'placeholder': 'Type height here...'
                 }),
                 'd': forms.TextInput(attrs={
                     'measure': 'depth',
                     'class': 'shadow-sm form-control',
                     'id': 'd', 
-                    'required': False, 
                     'placeholder': 'Type depth here...'
                 }),
                 'handle_site': forms.Select(attrs={
@@ -64,7 +62,12 @@ class OrderForm(forms.ModelForm):
         # def __init__(self, *args, **kwargs):
         #     super().__init__(*args, **kwargs)
         #     self.fields['price'].widget.attrs.update({'style': 'display:none;'})
-
+        
+        #set required fields
+        def __init__(self, *args, **kwargs):
+            super(OrderForm, self).__init__(*args, **kwargs)
+            self.fields['w'].required = True
+            self.fields['h'].required = True
 
             
 
