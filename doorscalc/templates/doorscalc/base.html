@@ -78,84 +78,16 @@ $('.nav-link').navigatebyattr({
     attr: 'href',
 });
 $('input[type="radio"]').navigatebyattr({
-    offset: 0,
+    offset: -800,
     attr: 'href',
 });
 
 //Fixed Navbar
 coconavi('.navbar', 50, 'navbar-scroll', '#logo', 'logo-sm');
 
-{% comment %} // Tippy launcher
-  tippy('label', {
-  followCursor: "horizontal",
-  animateFill: false,
-  animation: 'shift-away',
-  duration: 200,
-  arrow: true,
-}) {% endcomment %}
+//B4 navbar collapse
+$('.navbar-nav>li>a').colapseb4();
 
-
-{% comment %} // function: update order div.............................
-function updateOrderDiv()   {
-    $("#orders").load(window.location.href + " #orders" );
-}; {% endcomment %}
-
-
-{% comment %} $( "button[name='clear']" ).click(function() {
-    clearmy(inputs);
-    clearcontent(result);
-}); {% endcomment %}
-
-{% comment %} $( "button[name='begin']" ).click(function() {
-    clearmy(inputs);
-    clearcontent(result);
-    $('html, body').animate({
-        scrollTop: $("#formularz").offset().top
-    }, 500);
-}); {% endcomment %}
-
-$('input:radio[name="code"]').each( function(index) {
-    $(this).click(function (e) {
-
-        var excluded = $(this).attr('excluded');
-        console.log(excluded);
-        $('input[type="number"').prop('disabled', false);
-        if (excluded != undefined || excluded != null ) {
-            $('input[name='+excluded+']').prop('disabled', true);
-            console.log('changed')
-        } else {
-            $('input').prop('disabled', false);
-            console.log('all unlocked')
-            console.log(excluded)
-        }
-        excluded = null;
-    });
-});
-
-
-{% comment %} $('.nav-link').each( function(index) {
-    $(this).click(function (e) {
-        var target = $(this).attr('href');
-        $('html, body').animate({
-            scrollTop: $(target).offset().top-1210
-        }, 200);
-});
-}); {% endcomment %}
-
-{% comment %} // window toggling function..............................
-function toggleWindows() {
-    $('#foreg').fadeToggle('slow', function() {
-
-    });
-    $('#modal').toggle('fast', function() {
-
-    });
- }
-function toggleforeg() {
-    $('#foreg').fadeToggle('slow', function() {
-
-    });
- } {% endcomment %}
 
 // Form: Submit calculation & slide............................
     $('#doors_form').on('submit', function(event){
@@ -172,8 +104,20 @@ function toggleforeg() {
     });
 
 
-//
+//attr extracting 
+$('.excluded').each(function(){
+    var value = $(this).attr('value');
+    var ids = $(this).attr('id');
+    if (value != null || value != undefined) {
+        $(".radioselect[value="+ids+"]").attr('excluded', value);
+    }
+});
 
+$('input:radio[class="radioselect"]').disableme({
+    attr: 'excluded',
+    main_target: 'input[measure="', // + excluded value + ] Main target to disable
+    targets: 'input[type="text"]',
+});
 
 // function: clear object.................................
 function clearobj(obj) {
@@ -380,31 +324,9 @@ $('body').on('click', '#calc', function(){
 });
 
 
-$('.excluded').each(function(){
-    var value = $(this).attr('value');
-    var ids = $(this).attr('id');
-    if (value != null || value != undefined) {
-        $(".radioselect[value="+ids+"]").attr('excluded', value);
-    }
 
-});
-$('input:radio[class="radioselect"]').each( function(index) {
-    $(this).click(function (e) {
-        var excluded = $(this).attr('excluded');
-        console.log(excluded);
 
-        $('input[type="text"]').prop('disabled', false);
-        if (excluded != undefined || excluded != null ) {
-            $('input[measure="'+excluded+'"]').prop('disabled', true);
-            console.log('changed')
-        } else {
-            $('input[type="text"]').prop('disabled', false);
-            console.log('all unlocked')
-            console.log(excluded)
-        }
-        excluded = null;
-    });
-});
+
 
 //Clearing modal upon dismis
 $('.modal-footer>button').each(function(){
@@ -413,10 +335,11 @@ $('.modal-footer>button').each(function(){
         $('#modal-body').empty();
     });
 });
-//Collapsing bootstrap navbar upon click
-$('.navbar-nav>li>a').on('click', function(){
-    $('.navbar-collapse').collapse('hide');
-});
+
+
+
+
+
 
 setInterval(function () {
    updateDiv('#orders')

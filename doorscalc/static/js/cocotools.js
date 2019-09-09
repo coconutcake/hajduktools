@@ -11,21 +11,21 @@ function displayhidden(target, time, interval) {
         var that = this;
         var t = setTimeout(function() {
             $(that).fadeIn(time);
-            }, interval * index);
+        }, interval * index);
     });
     $(this).removeClass('initiallyHidden')
     console.log('initiallyHidden removed');
 }
 
 function showme(target, time, interval) {
-    $(target).each(function (index) {
+    $(target).each(function(index) {
         $(this).hide();
     });
     $(target).each(function(index) {
         var that = this;
         var t = setTimeout(function() {
             $(that).hide().slideDown(time);
-            }, interval * index);
+        }, interval * index);
     });
 }
 
@@ -35,6 +35,7 @@ function clearmy(target) {
     console.log('cleared');
     t.val('');
 }
+
 function clearcontent(target) {
     var t = target
     console.log('content cleared');
@@ -43,24 +44,25 @@ function clearcontent(target) {
 
 //Clearing plugin
 (function($) {
-$.fn.clearmeplease = function(options) {
-    var th = $(this);
-    function check() {
-        if(th.tagName == 'DIV'){
-            console.log("It's a div! Trying to empty...");
-            th.empty();
-        } else {
-            console.log("It's not a div! Trying to set empty val");
-            th.val('');
+    $.fn.clearmeplease = function(options) {
+        var th = $(this);
+
+        function check() {
+            if (th.tagName == 'DIV') {
+                console.log("It's a div! Trying to empty...");
+                th.empty();
+            } else {
+                console.log("It's not a div! Trying to set empty val");
+                th.val('');
+            }
         }
-    }
-    return check()
-};
+        return check()
+    };
 }(jQuery));
 
 //Div refresh
-function updateDiv(target)   {
-    $(target).load(window.location.href + " " + target );
+function updateDiv(target) {
+    $(target).load(window.location.href + " " + target);
 };
 
 // Navigate by attr plugin
@@ -70,23 +72,76 @@ function updateDiv(target)   {
             offset: 1,
             time: 200,
             attr: 'href',
-    }, options);
-    th = $(this);
-    return th.each( function(index) {
-        $(this).click(function (e) {
-            console.log('jq navigatebyattr:')
-            var target = $(this).attr(settings.attr);
-            console.log('navigating to -> ' + target);
-            $('html, body').animate({
-                scrollTop: $(target).offset().top + settings.offset
-            }, settings.time );
+        }, options);
+        th = $(this);
+        return th.each(function(index) {
+            $(this).click(function(e) {
+                console.log('----------------------');
+                console.log('NAVIGATEBYATTR by github: coconutcake');
+                var target = $(this).attr(settings.attr);
+                console.log('> navigating to -> ' + target);
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top + settings.offset
+                }, settings.time);
+            });
+            console.log('----------------------');
         });
-    });
     };
 }(jQuery));
 
+// Collapse b4 navbar upon click plugin
+(function($) {
+    $.fn.colapseb4 = function(options) {
+        var settings = $.extend({
+            colapseclass: '.navbar-collapse',
+        }, options);
+        th = $(this);
+        return th.on('click', function() {
+            console.log('----------------------');
+            console.log('B4COLLAPSER by github: coconutcake');
+            $(settings.colapseclass).collapse('hide');
+            console.log('> b4 navbar collapsed');
+            console.log('----------------------');
+        });
+    };
+}(jQuery));
 
+// Setting disable state according to object attr
+(function($) {
+    $.fn.disableme = function(options) {
+        var settings = $.extend({
+            attr: 'href',
+            main_target: 'input[measure="',
+            targets: 'input[type="text"]',
+        }, options);
+        th = $(this);
+        return th.each(function(index) {
+            $(this).click(function(e) {
+                //taking attr
+                var target_attr = $(this).attr(settings.attr);
+                //sanity check
+                console.log('----------------------');
+                console.log('INPUT DISABLER by github: coconutcake');
+                console.log('> This is extracted attr: ' + target_attr);
+                //reseting inputs
+                $(settings.targets).prop('disabled', false);
+                console.log('> targets reseted');
+                if (target_attr != undefined || target_attr != null) {
+                    console.log('> disabling main target with attr: ' + target_attr)
+                    $(settings.main_target + target_attr + '"]').prop('disabled', true);
+                    console.log('> main targets has been disabled!')
+                } else {
+                    $(settings.targets).prop('disabled', false);
+                    console.log('> targets unlocked!')
+                    console.log(target_attr)
+                }
+                excluded = null;
+                console.log('----------------------');
 
+            });
+        });
+    };
+}(jQuery));
 
 // Scrolled top bar [BASIC]
 function coconavi_b(target, topoffset, tempo) {
@@ -105,17 +160,16 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
     var navbar_brand = $('.navbar-brand');
     $(window).scroll(function() {
         if ($(window).scrollTop() <= topoffset) {
-
             $(logo_class).removeClass(trans_logo)
             navbar.removeClass(css_class);
             navbar_brand.removeClass('navbar-brand-scroll');
-            console.log('class removed');
+            console.log('> class removed');
         } else {
 
             $(logo_class).addClass(trans_logo)
             navbar.addClass(css_class);
             navbar_brand.addClass('navbar-brand-scroll');
-            console.log('class added');
+            console.log('> class added');
         }
     });
 
