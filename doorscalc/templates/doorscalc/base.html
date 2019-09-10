@@ -64,71 +64,51 @@ var result = $('#result');
 
 //Show all up
 $(document).ready(function(){
+    //Remove display:none and show content
     displayhidden('div.ih', 1200, 50);
     showme('p', 200, 10);
+    // Clear inputs and content of div upon page load
+    clearmy(inputs);
+    clearcontent(result);
+    // B4 Fixed Navbar
+    coconavi('.navbar', 50, 'navbar-scroll', '#logo', 'logo-sm');
+    // B4 navbar collapse
+    $('.navbar-nav>li>a').colapseb4();
+    // Scrolling configration by attr
+    $('.nav-link').navigatebyattr({
+        offset: -1210,
+        attr: 'href',
+    });
+    $('input[type="radio"]').navigatebyattr({
+        offset: -800,
+        attr: 'href',
+    });
+    // Attr extractor and input disabler
+    $('.excluded').each(function(){
+        var value = $(this).attr('value');
+        var ids = $(this).attr('id');
+        if (value != null || value != undefined) {
+            $(".radioselect[value="+ids+"]").attr('excluded', value);
+        }
+    });
+    $('input:radio[class="radioselect"]').disableme({
+        attr: 'excluded',
+        main_target: 'input[measure="', // + excluded value + ] Main target to disable
+        targets: 'input[type="text"]',
+    });
 });
-
-//Clear inputs upon page load
-clearmy(inputs);
-clearcontent(result);
-
-// Scrolling configration by attr
-$('.nav-link').navigatebyattr({
-    offset: -1210,
-    attr: 'href',
-});
-$('input[type="radio"]').navigatebyattr({
-    offset: -800,
-    attr: 'href',
-});
-
-//Fixed Navbar
-coconavi('.navbar', 50, 'navbar-scroll', '#logo', 'logo-sm');
-
-//B4 navbar collapse
-$('.navbar-nav>li>a').colapseb4();
-
 
 // Form: Submit calculation & slide............................
     $('#doors_form').on('submit', function(event){
     event.preventDefault();
     $("#result").empty();
     console.log("calculator works!")  // sanity check
-
     $('html, body').animate({
         scrollTop: $("#foreg").offset().top
     }, 500);
-
     $('#result').hide().fadeIn(800);
     calculate_form();
     });
-
-
-//attr extracting 
-$('.excluded').each(function(){
-    var value = $(this).attr('value');
-    var ids = $(this).attr('id');
-    if (value != null || value != undefined) {
-        $(".radioselect[value="+ids+"]").attr('excluded', value);
-    }
-});
-
-$('input:radio[class="radioselect"]').disableme({
-    attr: 'excluded',
-    main_target: 'input[measure="', // + excluded value + ] Main target to disable
-    targets: 'input[type="text"]',
-});
-
-// function: clear object.................................
-function clearobj(obj) {
-    for (var key in obj) {
-        delete obj[key];
-    }
-    console.log('SANITY CHECK: data cleaned?');
-    console.log(obj);
-}
-
-
 
 // function: CALCULATE.....................................
     function calculate_form() {
@@ -137,106 +117,52 @@ function clearobj(obj) {
         url : "{% url 'ajax' %}", // the endpoint
         type : "POST", // http method
         data : $('#doors_form').serialize(), // data sent with the post request
-
         // handle a successful response
         success : function(json) {
             console.log(json.isvalid);
             console.log(json.nosna);
             console.log(json.maxm2);
             if (json.isvalid) {
-
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
                 $('#modal-body').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"><button id="close_calc" class="shadow btn btn-danger m-1">Close</button><button id="ord" class="shadow btn btn-danger m-1"><i class="fa fa-paper-plane" aria-hidden="true"></i>Place order</button></div>')
-                
-
-
             } else {
                 alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
             }
         },
     });
-    
     };
 
-// Form: Submit order JSON.....................................
-    formData = {}
-
+//FORM: submit
     $('#d_form').on('submit', function(event){
         event.preventDefault();
-        console.log("form submitted!")  // sanity check
-        var arrayform = $("#d_form").serializeArray();
-        $(arrayform).each(function(index, obj){
-        formData[obj.name] = obj.value;
-        });
-        
-
-        order();
+        serializeform(this);
+        ajaxSend("{% url 'ajax_ord2' %}", formData);
         updateDiv('#orders')
         clearmy(inputs);
         clearcontent(result);
         clearobj(formData);
         updateDiv('#orders')
         scrollto('#upper_divi')
-        
-        
     });
 
-// ORDERING .................................................
-    var p;  //copy price and insert to input [pole_price]
+// FORM: order
+    var p;  //copy price and insert to input [pole_price] from json.payload
     $('body').on("click", "#ord" ,function(event) {
     event.preventDefault();
-    console.log("this is price......");
-    console.log(p);
-    $('#pole_price').val(p)
+    $('#pole_price').val(p) //przenies cene do pola ukrytego formularza
         if(confirm("Are you sure you want to order it?"))   {
-            var arrayform = $("#d_form").serializeArray();
-            $(arrayform).each(function(index, obj){
-            formData[obj.name] = obj.value;
-            });
-            console.log('SANITY CHECK: cash:');
-            console.log(formData);         
-            order();
+            serializeform('#d_form');  
+            ajaxSend("{% url 'ajax_ord2' %}", formData);
             updateDiv('#orders')
             clearmy(inputs);
             clearcontent(result);
             clearobj(formData);
-            scrollto('#upper_divi');
+            $('#upper_divi').scrollto({offset: -200});
         } else {
             return false;
         }
     });
-
-// function: ORDER......................................
-    function order() {
-        console.log("Placing order..................")
-        console.log(formData);
-        $.ajax({
-            url: "{% url 'ajax_ord2' %}",
-            type: "POST",
-            dataType: 'json',
-
-            data : formData,
-            
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-            },
-            success : function(payload) {
-                updateDiv('#orders')
-                console.log('.............................')
-                console.log('Payload: Begin')
-                console.log('.............................')
-                console.log('is POST request?: '+payload.if_post);
-                console.log('is form object?: '+payload.if_form);
-                console.log('is form valid?: '+payload.if_valid);
-                
-                    
-
-                
-            }
-        });
-
-    };
 
 // function: delete_order......................................
 $('body').on("click", ".cancel_order" ,function() {
@@ -247,46 +173,20 @@ $('body').on("click", ".cancel_order" ,function() {
             type: "POST",
             dataType: 'json',
             data: { 'id' : id },
-
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
             },
             success: function(response){
                 alert(response.status)
                 updateDiv('#orders')
-
             }
         });
     });
-
-$('body').on("click", "#close_calc" ,function() {
-    console.log('clicked')
-    
-    scrollto("#calc")
-});
-// function: live refreshing order................................
-
-
 // function send calculation......................................
-//................................................................
-function scrollto(target) {
-    $('html, body').animate({
-        scrollTop: $(target).offset().top-170
-    }, 500);
-}
-
-
-
 function send_form_data(form,view){
-    $('#result').empty();
-    console.log('[taking values..]')
-    var arrayform = $(form).serializeArray();
-        $(arrayform).each(function(index, obj){
-            formData[obj.name] = obj.value;
-        });
-    
+    clearcontent(result);
+    serializeform(form);
     console.log('JSON payload -> Django:');
-    console.log(formData);
     $.ajax({
             url: view,
             type: "POST",
@@ -304,29 +204,18 @@ function send_form_data(form,view){
                 console.log(json); // log the returned json to the console
                 console.log("success Django>Ajax" + json.m2); // another sanity check
                 $('#modal-body').html('<div class="alert rounded" role="alert"><p class="presult" id="net_price">Door net price: '+json.netprice+'€</p><p class="dresult" id="obx">Required gasket lenght: '+json.obx+'m and is '+json.gasket+' in this option. </p><p class="presult rounded" id="price">Final price including all: '+json.final_price+'€</p></div><div class="alert rounded" role="alert"></div>')
-                
-
-
             } else {
                 alert('Unfortunately, bearing surface of the wing exceeds its permissible space which makes it impossible to build. Its recommended to transform it into two-winged doors (if possible) to provide appropriate support in the form of additional cross-beam which will prevent from frame bending during exploitation.')
-            }
-            
+            } 
         },
         });
         arrayform = [];
 }
 
-
 $('body').on('click', '#calc', function(){
     console.log('calc clicked')
     send_form_data('#d_form', '{% url "ajax_calc" %}')
-    
 });
-
-
-
-
-
 
 //Clearing modal upon dismis
 $('.modal-footer>button').each(function(){
@@ -336,16 +225,9 @@ $('.modal-footer>button').each(function(){
     });
 });
 
-
-
-
-
-
 setInterval(function () {
    updateDiv('#orders')
 }, 10000);
-
-
     </script>
   </body>
 </html>

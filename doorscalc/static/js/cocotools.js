@@ -46,7 +46,6 @@ function clearcontent(target) {
 (function($) {
     $.fn.clearmeplease = function(options) {
         var th = $(this);
-
         function check() {
             if (th.tagName == 'DIV') {
                 console.log("It's a div! Trying to empty...");
@@ -59,6 +58,15 @@ function clearcontent(target) {
         return check()
     };
 }(jQuery));
+
+// Clearing object (dict)
+function clearobj(obj) {
+    for (var key in obj) {
+        delete obj[key];
+    }
+    console.log('> Object cleaned: ' + obj);
+    console.log(obj);
+}
 
 //Div refresh
 function updateDiv(target) {
@@ -86,6 +94,29 @@ function updateDiv(target) {
             });
             console.log('----------------------');
         });
+    };
+}(jQuery));
+
+//Simple scroll to
+function scrollto(target) {
+    $('html, body').animate({
+        scrollTop: $(target).offset().top-170
+    }, 500);
+}
+
+//Advanced scroll to plugin
+(function($) {
+    $.fn.scrollto = function(options) {
+        var settings = $.extend({
+            offset: -700,
+        }, options);
+        th = $(this);
+        return [ 
+            $('html, body').animate({scrollTop: $(th).offset().top+settings.offset}), 
+            console.log('----------------------'),
+            console.log('SCROLLTO by github: coconutcake'), 
+            console.log('> scrolled to: ' + th),
+        ]
     };
 }(jQuery));
 
@@ -174,6 +205,38 @@ function coconavi(target, topoffset, css_class, logo_class, trans_logo) {
     });
 
 };
+
+// Serializing form data and converting into prepared JSON object for Ajax
+// WARNING: Define 'formData' dictionary before calling this funtion!
+formData = {}
+function serializeform(targetform) {
+    var arrayform = $(targetform).serializeArray();
+    $(arrayform).each(function(index, obj){
+        formData[obj.name] = obj.value;
+    });
+  }
+
+// Ajax sender
+function ajaxSend(djurl, dataobj) {
+    $.ajax({
+        url: djurl,
+        type: "POST",
+        dataType: 'json',
+        data : dataobj,
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success : function(payload) {
+            console.log('.............................')
+            console.log('AJAX->DJANGO SENDER by coconutcake')
+        },
+        error: function(){
+            alert('error sending data to DJANGO!');
+        }
+    });
+    console.log('.............................')
+};
+
 
 // (function($) {
 //     $.fn.coconavi2 = function(options) {
