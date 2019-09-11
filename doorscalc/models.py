@@ -33,7 +33,6 @@ class Door(models.Model):
     nosna_max = models.FloatField(verbose_name=u"Maks. powierzchnia skrzydła nośnego", default=0.48, help_text="Wybierz maksymalną powierzchnie szyby nośnej", max_length=50, blank=False, null=False)
 
     gasket = models.BooleanField(verbose_name=u"Uszczelka w zestawie", default=False)
-    cover = models.ImageField(upload_to='images/', default="image.png")
     tooltip = models.CharField(verbose_name=u"Podpowiedź", help_text="Wpisz krótki opis pod myszką", default="", blank=True, null=False, max_length=50)
     published_date = models.DateTimeField(
             blank=True, null=True)
