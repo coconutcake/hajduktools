@@ -3,6 +3,33 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 import datetime
+from django.db.models import signals
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+from django.core.mail import send_mail, EmailMessage
+
+import smtplib
+
+def send_mail(target, topic, msg):
+    subject = topic
+    description =  msg
+    gmail_user =  "mp.ignatowicz@gmail.com" # email id from where you want send mail
+    gmail_pwd ="lubiete1231886"
+    FROM = 'Admin: <from@gmail.com>'
+    TO = target #email id where you want send mail
+    TEXT = description
+    SUBJECT = subject
+    server = smtplib.SMTP_SSL()
+    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server.ehlo()
+    server.starttls()
+    server.login(gmail_user, gmail_pwd)
+
+    message = """From: %s\nTo: %s\nSubject: %s\n\n%s """ % (FROM, TO, SUBJECT, TEXT)
+
+    server.sendmail(FROM, TO, message)
+    server.quit() 
+    print('end..............')   
 # Create your models here.
 
 
@@ -10,7 +37,7 @@ class Discount(models.Model):
     title = models.CharField(max_length=99, blank=False, null=False)
     discount = models.DecimalField(max_digits=3, decimal_places=0, help_text="Wpisz zniżkę w %", blank=False, null=False)
     def __str__(self):
-        return f'{self.title} | -{self.discount}%'
+        return ("%s | %s" % (self.title, self.discount))
 class Door(models.Model):
     C = 'int(w)*int(h)+int(h)*int(d)'
     F = 'int(w)*int(h)'
@@ -33,7 +60,6 @@ class Door(models.Model):
     nosna_max = models.FloatField(verbose_name=u"Maks. powierzchnia skrzydła nośnego", default=0.48, help_text="Wybierz maksymalną powierzchnie szyby nośnej", max_length=50, blank=False, null=False)
 
     gasket = models.BooleanField(verbose_name=u"Uszczelka w zestawie", default=False)
-    cover = models.ImageField(upload_to='images/', default="image.png")
     tooltip = models.CharField(verbose_name=u"Podpowiedź", help_text="Wpisz krótki opis pod myszką", default="", blank=True, null=False, max_length=50)
     published_date = models.DateTimeField(
             blank=True, null=True)
@@ -44,7 +70,7 @@ class Door(models.Model):
         self.save()
 
     def __str__(self):
-        return f'{self.code} | {self.title}'
+        return ("%s | %s" % (self.title, self.code))
 
 class Order(models.Model):
     P = 'Pending'
@@ -87,14 +113,13 @@ class Order(models.Model):
     price = models.DecimalField(_("Price [€]"), max_digits=5, decimal_places=0, default=0, blank=False, null=False)
 
     def price_euro(self):
-        return f'{self.price} €'
+        return ("%s €" % self.price)
 
     def measures(self):
         if self.d:
-            return f'{self.w}x{self.h}x{self.d}'
+            return ("%sx%sx%s" % (self.w, self.h, self.d))
         else: 
-            return f'{self.w}x{self.h}'
-
+            return ("%sx%sx" % (self.w, self.h))
 
     def publish(self):
         self.user = request.user
@@ -103,9 +128,19 @@ class Order(models.Model):
         
     # @classmethod
     # def save(self, *args, **kwargs):
-
+    #     print("OK")
     #     super().save(*args, **kwargs) 
 
     def __str__(self):
-        return f'{self.w}'
+        return ("%s" % self.w)
 
+@receiver(post_save, sender=Order)
+def order_notification(sender, instance, created, **kwargs):
+    print("New Order placed!\n--------------")
+    u = instance.user
+    print("%s has already ordered new doors" % u )
+    # send_mail("mateusz.ignatowicz@icloud.com", "Thanks for ordering doors", "Dear "+str(u)+"\nThank You for ordering. We have already placed it" )
+    print('something happened')
+
+    
+# post_save.connect(order_notification, sender=Order)
