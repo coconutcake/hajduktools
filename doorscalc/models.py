@@ -139,7 +139,7 @@ def order_notification(sender, instance, created, **kwargs):
     print("New Order placed!\n--------------")
     u = instance.user
     print("%s has already ordered new doors" % u )
-    send_mail("mateusz.ignatowicz@icloud.com", "Thanks for ordering doors", "Dear "+str(u)+"\nThank You for ordering. We have already placed it" )
+    # send_mail("mateusz.ignatowicz@icloud.com", "Thanks for ordering doors", "Dear "+str(u)+"\nThank You for ordering. We have already placed it" )
     print('something happened')
 
     
