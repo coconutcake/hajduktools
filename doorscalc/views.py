@@ -15,6 +15,14 @@ import json
 import ast
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
+
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+
+def email():    
+    email = EmailMessage('Subject', 'Body', to=['mateusz.ignatowicz@icloud.com'])
+    email.send()
+    print('something happened')
 # def doors_list(request):
 #     doors_objects = Door.objects.all()
 #     template = loader.get_template('doorscalc/index.html')
@@ -113,7 +121,6 @@ def ajax(request):
 def ajax_ord(request):
     if request.method == 'POST':
 
-
         w = request.POST.get('width', 'None')
         h = request.POST.get('height', 'None')
         d = request.POST.get('depth', 'None')
@@ -164,6 +171,8 @@ def ajax_ord(request):
                     obj.d = int(d)
             obj.door = Door.objects.get(pk=t) #wybierz dzwi z modelu Door po kodzie id.
             obj.save() # zapisz
+
+            print('SENT!')
         return JsonResponse(payload) # wyślij payload
 
 def delete_order(request):
