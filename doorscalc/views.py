@@ -19,17 +19,7 @@ from django.views.decorators.http import require_POST
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
-def email():    
-    email = EmailMessage('Subject', 'Body', to=['mateusz.ignatowicz@icloud.com'])
-    email.send()
-    print('something happened')
-# def doors_list(request):
-#     doors_objects = Door.objects.all()
-#     template = loader.get_template('doorscalc/index.html')
-#     context = {
-#         'doors_objects': doors_objects,
-#     }
-#     return HttpResponse(template.render(context, request))
+
 def index(request):
     template = loader.get_template('index/index.html')
     date = datetime.datetime.now()
