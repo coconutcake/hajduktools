@@ -10,7 +10,7 @@ class Discount(models.Model):
     title = models.CharField(max_length=99, blank=False, null=False)
     discount = models.DecimalField(max_digits=3, decimal_places=0, help_text="Wpisz zniżkę w %", blank=False, null=False)
     def __str__(self):
-        return f'{self.title} | -{self.discount}%'
+        return ("%s | %s" % (self.title, self.discount))
 class Door(models.Model):
     C = 'int(w)*int(h)+int(h)*int(d)'
     F = 'int(w)*int(h)'
@@ -44,7 +44,7 @@ class Door(models.Model):
         self.save()
 
     def __str__(self):
-        return f'{self.code} | {self.title}'
+        return ("%s | %s" % (self.title, self.code))
 
 class Order(models.Model):
     P = 'Pending'
