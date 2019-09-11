@@ -87,14 +87,13 @@ class Order(models.Model):
     price = models.DecimalField(_("Price [€]"), max_digits=5, decimal_places=0, default=0, blank=False, null=False)
 
     def price_euro(self):
-        return f'{self.price} €'
+        return ("%s €" % self.price)
 
     def measures(self):
         if self.d:
-            return f'{self.w}x{self.h}x{self.d}'
+            return ("%sx%sx%s" % (self.w, self.h, self.d))
         else: 
-            return f'{self.w}x{self.h}'
-
+            return ("%sx%sx" % (self.w, self.h))
 
     def publish(self):
         self.user = request.user
@@ -107,5 +106,5 @@ class Order(models.Model):
     #     super().save(*args, **kwargs) 
 
     def __str__(self):
-        return f'{self.w}'
+        return ("%s" % self.w)
 
