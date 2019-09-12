@@ -8,12 +8,6 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.mail import send_mail, EmailMessage
 
-def email():    
-    email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
-    email.send()
-    print('something happened')
-
-
 class Discount(models.Model):
     title = models.CharField(max_length=99, blank=False, null=False)
     discount = models.DecimalField(max_digits=3, decimal_places=0, help_text="Wpisz zniżkę w %", blank=False, null=False)
