@@ -8,16 +8,16 @@ The main idea is to provide B2B customers an access to such application which wi
 Admin will have access to price modifications and additional calculation formulas  through CMS and be able to change them along with constantly changing product prices.
 
 ## Main project assumptions:
-- Responsive and minimal app for B2B sector ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)
-- Access only for registered users [**-DONE-**]
-- Easy changes to apply such: prices, multipliers [**-DONE-**]
-- Additional formulas [**-DONE-**]
-- No page refreshings thanks to AJAX/JSON [**-DONE-**]
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Responsive and minimal app for B2B sector 
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Access only for registered users 
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Easy changes to apply such: prices, multipliers 
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Additional formulas
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) No page refreshings thanks to AJAX/JSON 
 
 ## Future project extensions:
-- Checking platform [**-DONE-**]
-- Doors ordering platform [**-DONE-**]
-- Statuses [**-DONE-**]
-- Mail notifications using signals
-
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)Checking platform 
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)Doors ordering platform
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)Statuses 
+- ![#c5f015](https://placehold.it/15/c5f015/000000?text=+)Mail notification upon order using signals
+- ![#f03c15](https://placehold.it/15/f03c15/000000?text=+)Status notifications
 
