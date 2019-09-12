@@ -28,7 +28,7 @@
               </li>
             </ul>
             <div class="">
-              <a href="{% url 'logout' %}"><button class="btn btn-outline-secondary" type="submit">Logout</button></a>
+              <a href="{% url 'logout' %}"><button class="btn btn-outline-secondary shadow" type="submit">Logout</button></a>
             </div>
           </div>
       </nav>
@@ -49,7 +49,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Calculation</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle"><i class="fa fa-calculator" aria-hidden="true"></i>
+Calculation</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -57,8 +58,10 @@
         <div class="modal-body" id="modal-body">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-danger" id="ord" type="submit" data-dismiss="modal">Order and
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>
+Close</button>
+          <button type="button" class="btn btn-danger" id="ord" type="submit" data-dismiss="modal"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+Order and
             close</button>
         </div>
       </div>
@@ -143,9 +146,10 @@
           {% for door in doors_objects %}
           <p class="excluded" id="{{ door.id }}" value="{{ door.excluded }}" style="display:none"></p>
           {% endfor %}
-          <input type="submit" id='sub' value="Order" class="btn btn-danger">
-          <a name="" id="calc" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter"
-            role="button">Calculate</a>
+          {% comment %} <input type="submit" id='sub' value="Order" class="btn btn-danger"> {% endcomment %}
+          <a name="" id="calc" class="btn btn-success btn-lg btn-block p-4 shadow-sm text-light" data-toggle="modal" data-target="#exampleModalCenter"
+            role="button"><i class="fa fa-eur" aria-hidden="true"></i>
+Calculate</a>
         </form>
       </div>
     </div>

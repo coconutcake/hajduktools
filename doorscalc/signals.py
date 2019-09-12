@@ -39,6 +39,7 @@ def order_notification(sender, instance, created, **kwargs):
     d = instance.d
     customer = instance.customer
     measure = ''
+
     if d is None or d == "None":
         measure = ('%sx%s' % (w,h))
     else: 
@@ -46,7 +47,7 @@ def order_notification(sender, instance, created, **kwargs):
     if created:
         print("%s ORDERED NEW DOORS" % u )
         print("Measure: %s" % measure)
-        email = EmailMessage('Order placed!', 'Thank You for ordering our doors.\nMeasure: '+measure+'\nCustomer: '+customer+'\n\nThank You '+emailu, to=['contact@mign.pl'])
+        email = EmailMessage('%s has already placed an order!' % u, 'Measure: '+measure+'\nFinal customer: '+customer+'\n\n', to=['contact@mign.pl'])
         email.send()
     else:
         print('Nobaby knows what')

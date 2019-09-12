@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
-
-
-
-
+{% load static %}
 {% block title %}Login{% endblock %}
 
+{% block header %}
+  <div class="d-flex justify-content-center mt-5">
+    <img src="{% static 'calc.png' %}" width="60px"/>
+  </div>
+  <div class="d-flex justify-content-center m-3">
+    <h1>DCALC<h1>
+  </div>    
+{% endblock header %}
+    
 {% block content %}
-
-
-<div class="m-3 d-flex justify-content-center">    
+<div class="m-3 d-flex justify-content-center"> 
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
         <label>Username: </label><br>
-        <input type="text" name="username" class="form-control" required>
+        <input type="text" name="username" class="form-control shadow-sm" required>
         <label>Password :</label><br>
-        <input type="password" name="password" class="form-control" required>
-        <button type="submit" class="btn btn-primary">Login</button>
+        <input type="password" name="password" class="form-control shadow-sm" required>
+        <button type="submit" class="btn btn-primary btn-block shadow-sm mt-4"><i class="fa fa-sign-in" aria-hidden="true"></i>
+Login</button>
     </form></div>
-
 {% endblock %}
 
+
+{% block footer %}
+<div class="row ih initiallyHidden justify-content-md-center m-3">
+    <div class="col-md-auto text-center">
+      <hr>
+      <span style="font-size: .8rem;">Author: Mateusz Ignatowicz</span><br>
+      <a href="http://mign.pl" style="font-size: .8rem; color: rgb(165, 165, 165);"><i class="fa fa-globe" aria-hidden="true"></i> WEBSITE</a>
+      <a href="http://github.com/coconutcake" style="font-size: .8rem; color: rgb(165, 165, 165);"><i class="fa fa-github" aria-hidden="true"></i> GITHUB</p> 
+    </div>
+</div>
+{% endblock footer %}
+    
