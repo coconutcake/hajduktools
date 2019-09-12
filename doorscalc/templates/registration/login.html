@@ -6,28 +6,17 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="row p-2 m-2">
-<h2>Login</h2>
-</div>
-<div class="row p-2 m-2">
-{% comment %} <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Login</button>
-</form> {% endcomment %}
 
-    <form method="post" action="{% url 'login' %}">
+
+<div class="m-3 d-flex justify-content-center">    
+<form method="post" action="{% url 'login' %}">
     {% csrf_token %}
         <label>Username: </label><br>
-        <input type="text" class="form-control" name="username" placeholder="First name" required>
-        <input type="text" name="username" required><br>
+        <input type="text" name="username" class="form-control" required>
         <label>Password :</label><br>
-        <input type="password" class="form-control" name="password" placeholder="password" required>
-        <input type="password" name="password" required><br>
+        <input type="password" name="password" class="form-control" required>
         <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-
-</div>
+    </form></div>
 
 {% endblock %}
 
