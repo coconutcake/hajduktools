@@ -120,5 +120,6 @@ def order_notification(sender, instance, created, **kwargs):
     print("New Order placed!\n--------------")
     u = instance.user
     print("%s has already ordered new doors" % u )
-    email()
+    email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
+    email.send()
     print('something happened')
