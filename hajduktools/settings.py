@@ -70,11 +70,11 @@ TEMPLATES = [
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'lubiete.atthost24.pl'
+EMAIL_HOST = ''
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'contact@mign.pl'
-EMAIL_HOST_PASSWORD = '1324magnum87'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 WSGI_APPLICATION = 'hajduktools.wsgi.application'
 
