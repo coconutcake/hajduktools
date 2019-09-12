@@ -113,7 +113,20 @@ class Order(models.Model):
 def order_notification(sender, instance, created, **kwargs):
     print("New Order placed!\n--------------")
     u = instance.user
-    print("%s has already ordered new doors" % u )
-    email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
-    email.send()
-    print('something happened')
+    emailu = instance.user.email
+    w = instance.w
+    h = instance.h
+    d = instance.d
+    customer = instance.customer
+    measure = ''
+    if d is None or d == "None":
+        measure = ('%sx%s' % (w,h))
+    else: 
+        measure = ('%sx%sx%s' % (w,h,d))
+    if created:
+        print("%s ORDERED NEW DOORS" % u )
+        print("Measure: %s" % measure)
+        email = EmailMessage('Order placed!', 'Thank You for ordering our doors.\nMeasure: '+measure+'\nCustomer: '+customer+'\n\nThank You '+emailu, to=['contact@mign.pl'])
+        email.send()
+    else:
+        print('Nobaby knows what')
