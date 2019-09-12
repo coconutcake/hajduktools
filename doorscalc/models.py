@@ -6,6 +6,13 @@ import datetime
 from django.db.models import signals
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from django.core.mail import send_mail, EmailMessage
+
+def email():    
+    email = EmailMessage('Subject', 'Body', to=['contact@mign.pl'])
+    email.send()
+    print('something happened')
+
 
 class Discount(models.Model):
     title = models.CharField(max_length=99, blank=False, null=False)
