@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from django.core.mail import send_mail, EmailMessage
 
 def email():    
-    email = EmailMessage('Subject', 'Body', to=['contact@mign.pl'])
+    email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
     email.send()
     print('something happened')
 
