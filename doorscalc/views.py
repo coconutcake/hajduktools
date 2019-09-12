@@ -162,8 +162,7 @@ def ajax_ord(request):
             obj.save() # zapisz
 
             print('SENT!')
-            email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
-            email.send()
+
         return JsonResponse(payload) # wyślij payload
 
 def delete_order(request):
