@@ -6,6 +6,7 @@
 Project has launched after customer requests about having a tool for quick and fast doors price calculation for end-customers.
 The main idea is to provide B2B customers an access to such application which will take advantage of Ajax and JSON to print all required results to the web-browser instatly without webpage refreshing.
 Admin will have access to price modifications and additional calculation formulas  through CMS and be able to change them along with constantly changing product prices.
+Statuses:
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Done`, ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `In progress`
 
 ## Main project assumptions:
