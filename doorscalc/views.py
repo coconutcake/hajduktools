@@ -15,7 +15,6 @@ import json
 import ast
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-
 from django.core.mail import send_mail, EmailMessage
 from django.conf import settings
 
@@ -163,6 +162,8 @@ def ajax_ord(request):
             obj.save() # zapisz
 
             print('SENT!')
+            email = EmailMessage('Order placed!', 'Thank You for ordering our doors', to=['contact@mign.pl'])
+            email.send()
         return JsonResponse(payload) # wyślij payload
 
 def delete_order(request):
