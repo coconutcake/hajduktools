@@ -115,3 +115,10 @@ class Order(models.Model):
     def __str__(self):
         return ("%s" % self.w)
 
+@receiver(post_save, sender=Order)
+def order_notification(sender, instance, created, **kwargs):
+    print("New Order placed!\n--------------")
+    u = instance.user
+    print("%s has already ordered new doors" % u )
+    send()
+    print('something happened')

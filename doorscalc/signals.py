@@ -4,6 +4,11 @@ from .models import Order
 from django.core.mail import send_mail, EmailMessage
 import smtplib
 
+def email():    
+    email = EmailMessage('Subject', 'Body', to=['contact@mign.pl'])
+    email.send()
+    print('something happened')
+
 def send_mail(target, topic, msg):
     subject = topic
     description =  msg
@@ -26,12 +31,6 @@ def send_mail(target, topic, msg):
     print('end..............')   
 
 
-@receiver(post_save, sender=Order)
-def order_notification(sender, instance, created, **kwargs):
-    print("New Order placed!\n--------------")
-    u = instance.user
-    print("%s has already ordered new doors" % u )
-    send_mail("mateusz.ignatowicz@icloud.com", "Thanks for ordering doors", "Dear "+str(u)+"\nThank You for ordering. We have already placed it" )
-    print('something happened')
+
 
     
