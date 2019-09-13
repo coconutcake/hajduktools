@@ -9,7 +9,7 @@ Admin will have access to price modifications and additional calculation formula
 
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Done`, ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `In progress`
 
-## Compatiblity:
+## Compability:
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Iphones (IOS)
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Android devices
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Firefox
