@@ -3,10 +3,10 @@
 {% block title %}Home{% endblock %}
 {% block header %}
   <div class="d-flex justify-content-center mt-5">
-    <img src="{% static 'calc.png' %}" width="60px" height="60px"/>
+    <img class="roll-in-blurred-top" src="{% static 'calc.png' %}" width="60px" height="60px"/>
   </div>
   <div class="d-flex justify-content-center m-3">
-    <h1 style="font-weight:bold;">DCALC<h1>
+    <h1 class="focus-in-expand" style="font-weight:bold;">DCALC<h1>
   </div>
 {% endblock header %}
 
@@ -35,7 +35,7 @@
 </div>
 {% comment %} <div class="d-flex justify-content-center"><a href="{% url 'login' %}"><button type="submit" class="btn btn-primary">Proceed to login</button></a></div> {% endcomment %}
 
-<div class="d-flex justify-content-center">    
+<div class="d-flex justify-content-center swing-in-top-bck">    
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
         <label>Username: </label><br>
@@ -54,7 +54,7 @@ Login</button>
 
 
 {% block footer %}
-<div class="row justify-content-md-center m-3">
+<div class="row justify-content-md-center m-3 focus-in-expand">
     <div class="col-md-auto text-center">
       <hr>
       <span style="font-size: .8rem;">Author: Mateusz Ignatowicz</span><br>
