@@ -15,6 +15,7 @@ Admin will have access to price modifications and additional calculation formula
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Firefox
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Chrome
 
+## Preview:
 ![apka](http://mign.pl/apka2a.gif)
 
 ## Main project assumptions:
