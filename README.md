@@ -8,7 +8,7 @@ The main idea is to provide B2B customers an access to such application which wi
 Admin will have access to price modifications and additional calculation formulas  through CMS and be able to change them along with constantly changing product prices.
 Statuses:
 ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) `Done`, ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `In progress`
-
+![apka](http://mign.pl/apka2a.gif)
 ## Main project assumptions:
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Responsive and minimal app for B2B sector 
 - ![#c5f015](https://placehold.it/15/c5f015/000000?text=+) Access only for registered users 
