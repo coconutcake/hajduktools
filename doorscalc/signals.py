@@ -38,6 +38,11 @@ def order_notification(sender, instance, created, **kwargs):
     h = instance.h
     d = instance.d
     customer = instance.customer
+    price = str(instance.price)
+    handle = instance.handle_site
+    data = str(instance.data)
+    door = instance.door.title
+    inlet = instance.inlet_site
     measure = ''
 
     if d is None or d == "None":
@@ -47,9 +52,7 @@ def order_notification(sender, instance, created, **kwargs):
     if created:
         print("%s ORDERED NEW DOORS" % u )
         print("Measure: %s" % measure)
-        email = EmailMessage('%s has already placed an order!' % u, 'Measure: '+measure+'\nFinal customer: '+customer+'\n\n', to=['contact@mign.pl'])
+        email = EmailMessage('%s has already placed an order!' % u, 'Customer: '+str(u)+'\nDoors: '+door+'\nMeasure: '+measure+'\nHandle:'+handle+'\nInlet: '+inlet+'\nDate: '+data+'\nPrice: '+price+'€\nFinal customer: '+customer+'\n\n...', to=[''])
         email.send()
     else:
-        print('Nobaby knows what')
-
-    
+        print('Nobady knows what happened...but deffinately not created')
